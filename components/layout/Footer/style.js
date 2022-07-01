@@ -28,8 +28,8 @@ export const StyledColumn = styled.div`
   gap: ${({ gap }) => gap && gap};
   ${mobile(
     css`
-      width: ${({ fill }) => fill && "100%"};
-      align-items: ${({ fill }) => fill && "center"};
+      width: ${({ fw }) => fw && "100%"};
+      align-items: ${({ fw }) => fw && "center"};
     `
   )}
   ${mobile(
@@ -125,12 +125,6 @@ export const StyledInfo = styled.div`
     `,
     400
   )}
-`;
-
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background: #707070;
 `;
 
 export const CopyRights = styled.p`

@@ -3,7 +3,6 @@ import {
   StyledColumn,
   StyledRow,
   StyledLogo,
-  Divider,
   CopyRights,
   StyledIcon,
   StyledText,
@@ -12,6 +11,7 @@ import {
   StyledTextSm,
   StyledInfo,
 } from "./style";
+import { Divider } from "../../shared/Divider";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -20,7 +20,7 @@ const Footer = () => {
     <StyledFooter>
       <StyledColumn gap="26px">
         <StyledRow justify="space-between" rowGap>
-          <StyledColumn gap="30px" fill>
+          <StyledColumn gap="30px" fw>
             <StyledLogo>
               <Image layout="fill" src="/images/logo.png" alt="logo" />
             </StyledLogo>
@@ -49,7 +49,7 @@ const Footer = () => {
             <StyledLink>Headphones</StyledLink>
             <StyledLink>Accessories</StyledLink>
           </StyledColumn>
-          <StyledColumn gap="25px" fill>
+          <StyledColumn gap="25px" fw>
             <StyledTitle>Contacts</StyledTitle>
             <StyledTextSm>
               Fell free get in touch with us via phone or send us a message
