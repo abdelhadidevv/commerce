@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import Layout from "../components/layout";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function Website({ Component, pageProps, router }) {
+  return (
+    <Layout router={router}>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
-export default MyApp
+export default Website;

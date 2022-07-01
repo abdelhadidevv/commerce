@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.116" height="11.502" viewBox="0 0 20.116 11.502">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fa7400"/>
+      <stop offset="1" stop-color="gray"/>
+    </linearGradient>
+  </defs>
+  <path id="ios-arrow-down" d="M98.062,167.985l7.606-7.612a1.431,1.431,0,0,1,2.03,0,1.45,1.45,0,0,1,0,2.036l-8.618,8.624a1.435,1.435,0,0,1-1.982.042l-8.678-8.66a1.438,1.438,0,0,1,2.03-2.036Z" transform="translate(-88 -159.95)" fill="url(#linear-gradient)"/>
+</svg>
