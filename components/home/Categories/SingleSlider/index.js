@@ -3,7 +3,6 @@ import SingleItem from "./SingleItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import dots from "./dots.module.css";
 
 var settings = {
   dots: true,
@@ -14,7 +13,7 @@ var settings = {
   pauseOnHover: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-  dotsClass: dots.button__bar,
+  dotsClass: "button__bar",
 };
 
 const SingleSlider = ({ dataItems }) => {

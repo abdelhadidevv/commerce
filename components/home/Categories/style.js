@@ -13,6 +13,12 @@ export const CategoriesContainer = styled.div`
     `,
     800
   )}
+  ${mobile(
+    css`
+      padding: 0px 10px;
+    `,
+    500
+  )}
 `;
 
 export const CategoriesColumn = styled.div`
@@ -48,6 +54,7 @@ export const CategoriesBox = styled.div`
     `
   )}
 `;
+
 export const CategoriesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -57,6 +64,12 @@ export const CategoriesGrid = styled.div`
       gap: 15px;
     `,
     900
+  )}
+  ${mobile(
+    css`
+      grid-template-columns: repeat(1, 1fr);
+    `,
+    500
   )}
 `;
 

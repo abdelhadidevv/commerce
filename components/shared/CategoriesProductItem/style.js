@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { mobile } from "../../../utils/media";
 
 export const CategoriesProductCard = styled.div`
   display: flex;
@@ -16,6 +17,15 @@ export const StyledIconBox = styled.div`
   align-self: ${({ aSelf }) => aSelf && aSelf};
 `;
 
+export const StyledImageBox = styled.div`
+  width: 100%;
+  min-height: 270px;
+  max-height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const StyledProductName = styled.p`
   font-size: 20px;
   font-weight: 600;
@@ -24,6 +34,7 @@ export const StyledProductName = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 export const StyledRow = styled.div`
   display: flex;
   justify-content: space-between;

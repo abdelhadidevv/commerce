@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import "../styles/dotsSingleSlider.css";
+import "../styles/dots.css";
 import Layout from "../components/layout";
 
 function Website({ Component, pageProps, router }) {

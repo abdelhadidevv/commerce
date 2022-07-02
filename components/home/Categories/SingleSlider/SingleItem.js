@@ -15,7 +15,16 @@ const SingleItem = ({ itemData }) => {
   return (
     <SingleItemContainer onClick={() => {}}>
       <Discount>{itemData.discount}</Discount>
-      <SliderImageBox src={itemData.image} loading="lazy" alt="" />
+      <SliderImageBox>
+        <Image
+          width={400}
+          height={630}
+          objectFit="contain"
+          src={itemData.image}
+          loading="lazy"
+          alt=""
+        />
+      </SliderImageBox>
       <StyledColumn>
         <Row justify="space-between">
           <Name fontSize="37px" weight="600" lg>

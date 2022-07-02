@@ -18,6 +18,13 @@
   gap: 30px;
 }
 
+@media (max-width: 1335px) {
+  .react-tabs__tab-list {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
 .react-tabs__tab {
   display: inline-block;
   bottom: -1px;
