@@ -1,0 +1,52 @@
+ .dots {
+     margin: 0 auto;
+     margin-top: 90px;
+     border-radius: 50%;
+     text-align: center;
+ }
+
+ .dots li {
+     list-style: none;
+     cursor: pointer;
+     display: inline-block;
+     margin: 0 3px;
+ }
+
+ .dots li button {
+     border: none;
+     background: #afafaf;
+     color: transparent;
+     cursor: pointer;
+     display: block;
+     height: 10px;
+     width: 10px;
+     border-radius: 50%;
+     opacity: 40%;
+     transition: all 0.3s ease-out;
+ }
+
+ .dots li.slick-active button {
+     width: 22px;
+     background-color: #fa7400;
+     background-image: linear-gradient(#fa7400, #7D3A00);
+     opacity: 80%;
+     border-radius: 30px;
+ }
+
+
+ .slick-next {
+     right: 0px !important;
+ }
+
+ .slick-prev {
+     left: 0px !important;
+     z-index: 1 !important;
+ }
+
+ .slick-next::before {
+     content: "" !important;
+ }
+
+ .slick-prev::before {
+     content: "" !important;
+ }

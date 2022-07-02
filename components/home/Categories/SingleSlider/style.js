@@ -4,7 +4,6 @@ import { mobile } from "../../../../utils/media";
 export const SingleSliderContainer = styled.div`
   border-radius: 8px;
   background: #f9f8f8;
-  height: 825px;
   overflow: hidden;
 `;
 
@@ -25,10 +24,10 @@ export const SingleItemContainer = styled.div`
 
 export const StyledColumn = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  justify-self: flex-end;
 `;
 
 export const Row = styled.div`
@@ -63,16 +62,25 @@ export const Discount = styled.p`
   )}
 `;
 
-export const SliderImageBox = styled.img`
+export const SliderImageBox = styled.div`
   width: 100%;
-  height: 550px;
+  height: 100%;
   margin: 20px 0px 40px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${mobile(
     css`
-      height: 250px;
+      /* height: 250px; */
       margin: 10px 0px 20px 0px;
     `,
     450
+  )}
+  ${mobile(
+    css`
+      /* height: 100px; */
+    `,
+    700
   )}
 `;
 

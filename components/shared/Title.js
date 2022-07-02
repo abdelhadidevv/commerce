@@ -9,7 +9,7 @@ export const StyledLgTitle = styled.h2`
   text-align: left;
   ${mobile(
     css`
-      text-align: ${({ center }) => center && "center"};
+      text-align: center;
     `
   )}
 `;
@@ -19,10 +19,10 @@ export const StyledSmTitle = styled.p`
   font-weight: 300;
   color: #111111;
   text-transform: uppercase;
-   text-align: left;
+  text-align: left;
   ${mobile(
     css`
-      text-align: ${({ center }) => center && "center"};
+      text-align: center;
     `
   )}
 `;

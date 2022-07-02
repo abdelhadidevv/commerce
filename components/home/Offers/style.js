@@ -1,4 +1,4 @@
-import styled,{css} from "styled-components";
+import styled, { css } from "styled-components";
 import { mobile, desktop } from "../../../utils/media";
 
 export const OffersBox = styled.div`
@@ -22,7 +22,14 @@ export const OffersBox = styled.div`
   ${mobile(
     css`
       height: 150px;
-    `,900
+    `,
+    900
+  )}
+  ${mobile(
+    css`
+      padding: 0px 20px;
+    `,
+    550
   )}
 `;
 
@@ -31,6 +38,13 @@ export const OffersContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile(
+    css`
+      flex-direction: column;
+      gap: 10px;
+    `,
+    415
+  )}
 `;
 
 export const OffersTitle = styled.h2`
@@ -52,4 +66,10 @@ export const OffersButton = styled.button`
   :hover {
     background: #fa7400;
   }
+  ${mobile(
+    css`
+      padding: 14px 20px;
+    `,
+    550
+  )}
 `;

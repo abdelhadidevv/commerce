@@ -20,7 +20,7 @@ export const HeroContainer = styled.div`
   ${mobile(
     css`
       padding: 0px 20px;
-      padding-top: 100px;
+      padding-top: 50px;
       padding-bottom: 50px;
     `,
     600

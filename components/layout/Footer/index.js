@@ -31,13 +31,13 @@ const Footer = () => {
               nisi ut aliquip ex ea commodo consequat.
             </StyledText>
           </StyledColumn>
-          <StyledColumn gap="30px">
+          <StyledColumn gap="30px" fillLinks  >
             <StyledTitle>Home</StyledTitle>
             <StyledLink>Featured Categories</StyledLink>
             <StyledLink>Featured Products</StyledLink>
             <StyledLink>Offers</StyledLink>
           </StyledColumn>
-          <StyledColumn gap="30px">
+          <StyledColumn gap="30px" fillLinks>
             <StyledTitle>Menu</StyledTitle>
             <StyledLink>Home</StyledLink>
             <StyledLink>New arrival</StyledLink>

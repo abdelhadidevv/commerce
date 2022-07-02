@@ -12,7 +12,7 @@ export const StyledNavbar = styled.header`
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   padding: 0 60px;
   ${mobile(
     css`
