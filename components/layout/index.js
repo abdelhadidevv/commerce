@@ -2,12 +2,12 @@ import Head from "next/head";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Fonts from "../fonts";
-import { useState } from "react";
+import { useRouter } from "next/router";
 
-const Layout = ({ children, router }) => {
-  const [isShowNavAndFooter] = useState(
-    router.asPath !== "/signup" && router.asPath !== "/login"
-  );
+const Layout = ({ children }) => {
+  const routerHook = useRouter();
+  const isShowNavAndFooter =
+    routerHook.asPath !== "/signup" && routerHook.asPath !== "/login";
 
   return (
     <>
@@ -24,7 +24,7 @@ const Layout = ({ children, router }) => {
       </Head>
       <Fonts />
 
-      {isShowNavAndFooter && <Navbar path={router.asPath} />}
+      {isShowNavAndFooter && <Navbar path={routerHook.asPath} />}
       {children}
       {isShowNavAndFooter && <Footer />}
     </>
