@@ -30,7 +30,7 @@ const Navbar = ({ path }) => {
           <option value="en">English</option>
           <option value="ar">Arabic</option>
         </StyledSelect>
-        <StyledIcon src="/images/icons/search.svg" alt=""/>
+        <StyledIcon src="/images/icons/search.svg" alt="" />
       </StyledBox>
       <StyledBox gap="40px">
         <LinkItem href="/" path={path}>
@@ -54,7 +54,9 @@ const Navbar = ({ path }) => {
         </LinkItem>
       </StyledBox>
       <StyledBox>
-        <StyledButton>Sign In</StyledButton>
+        <NextLink href="/login">
+          <StyledButton>Sign Up</StyledButton>
+        </NextLink>
       </StyledBox>
       {/* mobile view */}
       <StyledBoxMobile>
@@ -64,7 +66,9 @@ const Navbar = ({ path }) => {
         <Image width={188} height={39} src="/images/logo.png" alt="logo" />
       </StyledBoxMobile>
       <StyledBoxMobile>
-        <StyledButton>Sign In</StyledButton>
+        <NextLink href="/login">
+          <StyledButton>Login</StyledButton>
+        </NextLink>
       </StyledBoxMobile>
     </StyledNavbar>
   );

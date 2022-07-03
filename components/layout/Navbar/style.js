@@ -77,6 +77,7 @@ export const StyledButton = styled.button`
   border-radius: 30px;
   text-align: center;
   white-space: nowrap;
+  cursor: pointer;
   ${mobile(css`
     width: auto;
     font-size: 14px;
