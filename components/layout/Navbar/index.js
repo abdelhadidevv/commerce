@@ -30,7 +30,7 @@ const Navbar = ({ path }) => {
           <option value="en">English</option>
           <option value="ar">Arabic</option>
         </StyledSelect>
-        <StyledIcon src="/images/icons/search.svg" />
+        <StyledIcon src="/images/icons/search.svg" alt=""/>
       </StyledBox>
       <StyledBox gap="40px">
         <LinkItem href="/" path={path}>
