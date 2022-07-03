@@ -7,7 +7,7 @@ export const CategoriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 60px;
-  padding-top: 150px;
+  padding-top: 50px;
   padding-bottom: 85px;
   overflow: hidden;
 `;

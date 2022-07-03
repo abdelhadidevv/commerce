@@ -23,7 +23,7 @@ export const Column = styled.div`
 
 export const ProductDetailsContainer = styled.div`
   width: 100%;
-  padding-top: 142px;
+  padding-top: 42px;
   padding-bottom: 94px;
   overflow: hidden;
 `;

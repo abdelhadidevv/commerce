@@ -11,7 +11,7 @@ import {
   StyledTextSm,
   StyledInfo,
 } from "./style";
-import { Divider } from "../../shared/Divider";
+import { Divider3 } from "../../shared/Divider";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -31,7 +31,7 @@ const Footer = () => {
               nisi ut aliquip ex ea commodo consequat.
             </StyledText>
           </StyledColumn>
-          <StyledColumn gap="30px" fillLinks  >
+          <StyledColumn gap="30px" fillLinks>
             <StyledTitle>Home</StyledTitle>
             <StyledLink>Featured Categories</StyledLink>
             <StyledLink>Featured Products</StyledLink>
@@ -65,7 +65,7 @@ const Footer = () => {
             </StyledRow>
           </StyledColumn>
         </StyledRow>
-        <Divider />
+        <Divider3 />
         <StyledRow justify="space-between">
           <CopyRights>all copyRights are reserved @2022</CopyRights>
           <StyledRow gap="33px">

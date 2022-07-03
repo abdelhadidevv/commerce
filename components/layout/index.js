@@ -2,8 +2,13 @@ import Head from "next/head";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Fonts from "../fonts";
+import { useState } from "react";
 
 const Layout = ({ children, router }) => {
+  const [isShowNavAndFooter] = useState(
+    router.asPath !== "/signup" && router.asPath !== "/login"
+  );
+
   return (
     <>
       <Head>
@@ -18,9 +23,10 @@ const Layout = ({ children, router }) => {
         <title>TechStore - Home</title>
       </Head>
       <Fonts />
-      <Navbar path={router.asPath} />
+
+      {isShowNavAndFooter && <Navbar path={router.asPath} />}
       {children}
-      <Footer />
+      {isShowNavAndFooter && <Footer />}
     </>
   );
 };
