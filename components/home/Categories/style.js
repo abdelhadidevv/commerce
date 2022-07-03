@@ -4,7 +4,7 @@ import { mobile } from "../../../utils/media";
 export const CategoriesContainer = styled.div`
   width: 100vw;
   padding: 0px 60px;
-  margin: 140px 0px;
+  margin: 40px 0px;
   display: flex;
   flex-direction: column;
   ${mobile(

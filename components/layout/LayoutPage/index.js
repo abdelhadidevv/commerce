@@ -1,8 +1,7 @@
 import Head from "next/head";
-
 import { StyledLayoutPage } from "./style";
 
-const LayoutPage = ({ children, title }) => {
+const LayoutPage = ({ children, title, mt0 }) => {
   const t = `${title} - TechStore`;
 
   return (
@@ -13,7 +12,7 @@ const LayoutPage = ({ children, title }) => {
           <meta property="og:title" content={t} />
         </Head>
       )}
-      <StyledLayoutPage>{children}</StyledLayoutPage>
+      <StyledLayoutPage mt0={mt0}>{children}</StyledLayoutPage>
     </>
   );
 };

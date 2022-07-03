@@ -32,3 +32,7 @@ export const Divider2 = styled.div`
   height: 1px;
   background: #c4c4c4;
 `;
+
+export const Divider3 = styled(Divider2)`
+  background: #707070;
+`;

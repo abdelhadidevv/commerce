@@ -8,7 +8,7 @@ import Trending from "../components/home/Trending";
 
 export default function Home() {
   return (
-    <LayoutPage>
+    <LayoutPage mt0>
       <Hero />
       <Categories />
       <Offers />
