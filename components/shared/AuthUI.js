@@ -11,7 +11,7 @@ export const AuthContainer = styled.div`
       height: auto;
       flex-direction: column;
     `,
-    1551
+    1500
   )}
 `;
 
@@ -30,7 +30,7 @@ export const LeftBox = styled.div`
       align-items: center;
       padding: 30px 30px;
     `,
-    1551
+    1500
   )}
 `;
 
@@ -48,7 +48,7 @@ export const RightBox = styled.div`
       padding: 0px 20px;
       padding-top: 34px;
     `,
-    1551
+    1500
   )}
 `;
 
@@ -64,7 +64,7 @@ export const AuthTitle = styled.h1`
       align-self: center;
       text-align: center;
     `,
-    1551
+    1500
   )}
 `;
 
@@ -79,7 +79,7 @@ export const AuthSubTitle = styled.h2`
       align-self: center;
       text-align: center;
     `,
-    1551
+    1500
   )}
 `;
 
@@ -185,6 +185,6 @@ export const StyledLink = styled.a`
       margin-top: 120px;
       font-size: 17px;
     `,
-    1551
+    1500
   )}
 `;

@@ -1,9 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { mobile } from "../../utils/media";
 
 export const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 55px 140px;
+  ${mobile(
+    css`
+      padding: 19px 15px;
+    `,
+    1000
+  )}
 `;
 
 export const BackButton = styled.a`
@@ -16,6 +23,15 @@ export const CartList = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 55px;
+  ${mobile(css`
+    gap: 14px;
+  `)}
+  ${mobile(
+    css`
+      margin-top: 19px;
+    `,
+    1000
+  )}
 `;
 
 export const CartItemContainer = styled.div`
@@ -48,6 +64,9 @@ export const CartItemName = styled.p`
   font-weight: 500;
   color: #646363;
   margin-left: 90px;
+  ${mobile(css`
+    margin-left: 0px;
+  `)}
 `;
 
 export const QuantityInput = styled.input`
@@ -76,6 +95,9 @@ export const QuantityButton = styled.button`
   color: #646363;
   background: transparent;
   border: none;
+  ${mobile(css`
+    margin-left: ${({ mb }) => mb && "23px"};
+  `)}
 `;
 
 export const CartItemPrice = styled.p`
@@ -83,6 +105,9 @@ export const CartItemPrice = styled.p`
   font-weight: 500;
   color: #0ea965;
   margin-right: 60px;
+  ${mobile(css`
+    margin-right: 0px;
+  `)}
 `;
 
 export const RowBox = styled.div`
@@ -91,6 +116,18 @@ export const RowBox = styled.div`
   gap: ${({ gap }) => gap && gap};
   justify-content: ${({ jContent }) => jContent && jContent};
   width: ${({ fill }) => fill && "100%"};
+  ${mobile(css`
+    flex-direction: ${({ mb }) => mb && "column"};
+    gap: ${({ mb }) => mb && "28px"};
+  `)}
+  ${mobile(css`
+    flex-direction: ${({ mbReverse }) => mbReverse && "column-reverse"};
+    height: ${({ mbReverse }) => mbReverse && "100%"};
+    justify-content: ${({ mbReverse }) => mbReverse && "space-between"};
+    justify-content: ${({ mbReverse }) => mbReverse && "space-between"};
+    padding-top: ${({ mbReverse }) => mbReverse && "10px"};
+    padding-bottom: ${({ mbReverse }) => mbReverse && "10px"};
+  `)}
 `;
 
 export const PaymentButton = styled.a`
@@ -106,4 +143,10 @@ export const PaymentButton = styled.a`
   align-items: center;
   align-self: flex-end;
   text-decoration: none;
+  ${mobile(
+    css`
+      width: 100%;
+    `,
+    600
+  )}
 `;

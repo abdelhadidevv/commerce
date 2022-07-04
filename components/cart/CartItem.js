@@ -22,15 +22,15 @@ const CartItem = () => {
         />
       </ImageBox>
       <RowBox jContent="space-between" fill>
-        <RowBox gap="118px">
+        <RowBox gap="118px" mb>
           <CartItemName>Laptop Bag</CartItemName>
           <RowBox>
-            <QuantityButton>-</QuantityButton>
+            <QuantityButton mb>-</QuantityButton>
             <QuantityInput min={1} value={1} type="number" />
             <QuantityButton>+</QuantityButton>
           </RowBox>
         </RowBox>
-        <RowBox>
+        <RowBox mb mbReverse>
           <CartItemPrice>$75</CartItemPrice>
           <Image
             width={14}
