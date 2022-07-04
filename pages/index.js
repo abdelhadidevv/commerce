@@ -1,4 +1,3 @@
-import Head from "next/head";
 import LayoutPage from "../components/layout/LayoutPage";
 import Hero from "../components/home/Hero";
 import Offers from "../components/home/Offers";
