@@ -12,8 +12,12 @@ import {
   StyledTab,
   Logout,
   MobileLeftContainer,
+  MobileStyledTab,
+  RightContainer,
+  MobileLogout,
 } from "../components/profile/style";
 import Image from "next/image";
+import OrderItem from "../components/shared/OrderItem"
 
 const Profile = () => {
   return (
@@ -61,8 +65,20 @@ const Profile = () => {
             <Logout>Logout</Logout>
           </LeftContainer>
           <MobileLeftContainer>
-            
+            <MobileStyledTab active>My Orders</MobileStyledTab>
+            <MobileStyledTab>Wishlist</MobileStyledTab>
+            <MobileStyledTab>Notifications</MobileStyledTab>
+            <MobileStyledTab>Settings</MobileStyledTab>
           </MobileLeftContainer>
+          <RightContainer>
+            <OrderItem />
+            <OrderItem />
+            <OrderItem />
+            <OrderItem />
+            <OrderItem />
+            <OrderItem />
+          </RightContainer>
+          <MobileLogout>Logout</MobileLogout>
         </RowBox>
       </ProfileContainer>
     </LayoutPage>

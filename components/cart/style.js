@@ -48,6 +48,7 @@ export const CartItemContainer = styled.div`
 
 export const ImageBox = styled.div`
   width: 174px;
+  max-width: 174px;
   height: 100%;
   background: #e3e3e3;
   border: 0.3px solid #707070;
