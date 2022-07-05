@@ -14,6 +14,9 @@ export const CartContainer = styled.div`
 `;
 
 export const BackButton = styled.a`
+  font-size: 20px;
+  font-weight: 500;
+  color: #646363;
   display: flex;
   gap: 9px;
 `;
