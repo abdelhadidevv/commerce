@@ -4,7 +4,7 @@ import { mobile, desktop } from "../../../utils/media";
 export const HeroContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-image: url("/images/bg.png");
+  background-image: ${({ img }) => img && `url(${img})`};
   background-size: cover;
   background-repeat: no-repeat;
   padding: 0px 60px;

@@ -6,24 +6,30 @@ import {
 } from "./style";
 import { ProductPrice } from "../../../shared/Text";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
+const ProductItem = ({ productData }) => {
+  const router = useRouter();
 
-const ProductItem = () => {
   return (
-    <ProductItemContainer>
+    <ProductItemContainer
+      onClick={() => {
+        router.push(`/product-details/${productData._id}`);
+      }}
+    >
       <ProductImageBox>
         <Image
           width={150}
           height={150}
           objectFit="contain"
-          src="/images/phone3.png"
+          src={productData.images}
           alt=""
         />
       </ProductImageBox>
-      <ProductName>Smart Watch</ProductName>
-      <ProductPrice>$990</ProductPrice>
+      <ProductName>{productData.name}</ProductName>
+      <ProductPrice>{productData.price}</ProductPrice>
       <MoreInfo>
-        More info &nbsp; 
+        More info &nbsp;
         <Image
           width={28}
           height={16}

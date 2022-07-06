@@ -7,14 +7,17 @@ import {
   SpaceBetweenBox,
 } from "./style";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 const Hero = () => {
+  const { offers, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.products
+  );
+
   return (
-    <HeroContainer>
-      <Title>PlayStation 5</Title>
-      <SubTitle>
-        lightning-fast download speed with super-fast ssd storage
-      </SubTitle>
+    <HeroContainer img={offers[0]?.imageBanner}>
+      <Title>{offers[0]?.name}</Title>
+      <SubTitle>{offers[0]?.description}</SubTitle>
       <SpaceBetweenBox>
         <BtnStartShopping>
           Start Shopping
