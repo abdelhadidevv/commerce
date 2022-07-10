@@ -3,6 +3,8 @@ import ProductItem from "./ProductItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -51,53 +53,23 @@ function SamplePrevArrow(props) {
 }
 
 const ProductsSlider = () => {
-  const data = [
-    {
-      id: 1,
-      title: "Samsung Galaxy S10",
-      image: "/images/phone5.png",
-      discount: "SALE -50%",
-      discountPrice: "139.00$",
-      price: "$99",
-      brand: "Samsung",
-    },
-    {
-      id: 2,
-      title: "Pixel 6 Pro",
-      image: "/images/phone1.png",
-      discount: "SALE -90%",
-      discountPrice: "500.00$",
-      price: "$499",
-      brand: "Google",
-    },
-    {
-      id: 3,
-      title: "Samsung Galaxy S10",
-      image: "/images/phone5.png",
-      discount: "SALE -50%",
-      discountPrice: "139.00$",
-      price: "$99",
-      brand: "Samsung",
-    },
-    {
-      id: 4,
-      title: "Pixel 6 Pro",
-      image: "/images/phone1.png",
-      discount: "SALE -90%",
-      discountPrice: "500.00$",
-      price: "$499",
-      brand: "Google",
-    },
-  ];
+  const { featuredProducts, isLoading, isError, isSuccess, message } =
+    useSelector((state) => state.products);
+  const [listData, setListData] = useState([]);
+
+  useEffect(() => {
+    if (isSuccess && featuredProducts) {
+      setListData(featuredProducts);
+    }
+  }, [featuredProducts, isSuccess]);
 
   var settings = {
     dots: true,
     infinite: true,
-    autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 2,
     dotsClass: "dots",
     arrows: true,
     nextArrow: <SampleNextArrow />,
@@ -131,16 +103,15 @@ const ProductsSlider = () => {
   };
 
   return (
-    <>
-      <ProductsSliderContainer>
-        <Slider {...settings}>
-          {data.map((item) => (
-            <ProductItem key={Math.random()} />
+    <ProductsSliderContainer>
+      <Slider {...settings}>
+        {listData &&
+          listData.map((item) => (
+            <ProductItem key={item._id} productData={item} />
           ))}
-          <style jsx>{``}</style>
-        </Slider>
-      </ProductsSliderContainer>
-    </>
+        <style jsx>{``}</style>
+      </Slider>
+    </ProductsSliderContainer>
   );
 };
 

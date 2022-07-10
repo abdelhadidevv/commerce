@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   SingleItemContainer,
   Discount,
@@ -12,8 +13,14 @@ import {
 } from "./style";
 
 const SingleItem = ({ itemData }) => {
+  const router = useRouter();
+
   return (
-    <SingleItemContainer onClick={() => {}}>
+    <SingleItemContainer
+      onClick={() => {
+        router.push(`/product-details/${itemData._id}`);
+      }}
+    >
       <Discount>{itemData.discount}</Discount>
       <SliderImageBox>
         <Image

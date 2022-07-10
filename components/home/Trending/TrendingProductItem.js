@@ -6,22 +6,30 @@ import {
 } from "./style";
 import { ProductPrice } from "../../shared/Text";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-const TrendingProductItem = () => {
+const TrendingProductItem = ({ productData }) => {
+  const router = useRouter();
+
   return (
-    <TrendingProductItemCard>
+    <TrendingProductItemCard
+      onClick={() => {
+        router.push(`/product-details/${productData._id}`);
+      }}
+    >
       <ImageBox>
         <Image
           width={200}
           height={200}
           objectFit="contain"
-          src="/images/phone3.png"
+          src={productData.images}
+          loading="lazy"
           alt=""
         />
       </ImageBox>
       <StyledRow>
-        <ProductName>Nike Court Air </ProductName>
-        <ProductPrice mt0>$58</ProductPrice>
+        <ProductName>{productData.name}</ProductName>
+        <ProductPrice mt0>${productData.price}</ProductPrice>
       </StyledRow>
     </TrendingProductItemCard>
   );

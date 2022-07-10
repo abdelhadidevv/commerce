@@ -101,7 +101,7 @@ export const AuthImageBox = styled.div`
   )}
 `;
 
-export const StyledBox = styled.div`
+export const StyledBox = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,6 +156,7 @@ export const StyledSend = styled.button`
   display: flex;
   align-items: center;
   gap: 1px;
+  cursor: pointer;
 `;
 
 export const StyledLink = styled.a`

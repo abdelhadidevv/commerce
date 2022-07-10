@@ -3,6 +3,8 @@ import SingleItem from "./SingleItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 var settings = {
   dots: true,
@@ -16,66 +18,36 @@ var settings = {
   dotsClass: "button__bar",
 };
 
-const SingleSlider = ({ dataItems }) => {
-  const data = dataItems
-    ? [
-        ...dataItems.images.map((item) => {
+const SingleSlider = () => {
+  const { featuredCategories, isLoading, isError, isSuccess, message } =
+    useSelector((state) => state.products);
+  const [listData, setListData] = useState([]);
+
+  useEffect(() => {
+    if (isSuccess && featuredCategories) {
+      setListData(
+        featuredCategories[0]?.images?.map((item) => {
           return {
-            id: dataItems._id,
-            title: dataItems.name,
+            _id: featuredCategories[0]._id,
+            title: featuredCategories[0].name,
             image: item,
             discount: "SALE -50%",
             discountPrice: "139.00$",
-            price: "$" + dataItems.price,
+            price: "$" + featuredCategories[0].price,
             brand: "Samsung",
           };
-        }),
-      ]
-    : [
-        {
-          id: 1,
-          title: "Samsung Galaxy S10",
-          image: "/images/phone5.png",
-          discount: "SALE -50%",
-          discountPrice: "139.00$",
-          price: "$99",
-          brand: "Samsung",
-        },
-        {
-          id: 2,
-          title: "Pixel 6 Pro",
-          image: "/images/phone1.png",
-          discount: "SALE -90%",
-          discountPrice: "500.00$",
-          price: "$499",
-          brand: "Google",
-        },
-        {
-          id: 3,
-          title: "Samsung Galaxy S10",
-          image: "/images/phone5.png",
-          discount: "SALE -50%",
-          discountPrice: "139.00$",
-          price: "$99",
-          brand: "Samsung",
-        },
-        {
-          id: 4,
-          title: "Pixel 6 Pro",
-          image: "/images/phone1.png",
-          discount: "SALE -90%",
-          discountPrice: "500.00$",
-          price: "$499",
-          brand: "Google",
-        },
-      ];
+        })
+      );
+    }
+  }, [featuredCategories, isSuccess]);
 
   return (
     <SingleSliderContainer>
       <Slider {...settings}>
-        {data.map((item) => (
-          <SingleItem itemData={item} key={Math.random()} />
-        ))}
+        {featuredCategories &&
+          listData?.map((item) => (
+            <SingleItem itemData={item} key={Math.random()} />
+          ))}
       </Slider>
     </SingleSliderContainer>
   );
