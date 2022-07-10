@@ -60,7 +60,7 @@ const Navbar = ({ path }) => {
       </StyledBox>
       {/* mobile view */}
       <StyledBoxMobile>
-        <StyledIcon src="/images/icons/menu.svg" />
+        <StyledIcon src="/images/icons/menu.svg" alt="" />
       </StyledBoxMobile>
       <StyledBoxMobile>
         <Image width={188} height={39} src="/images/logo.png" alt="logo" />

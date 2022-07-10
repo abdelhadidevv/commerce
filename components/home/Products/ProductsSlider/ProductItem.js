@@ -23,6 +23,8 @@ const ProductItem = ({ productData }) => {
           height={150}
           objectFit="contain"
           src={productData.images}
+          blurDataURL={productData.images}
+          placeholder="blur"
           alt=""
         />
       </ProductImageBox>

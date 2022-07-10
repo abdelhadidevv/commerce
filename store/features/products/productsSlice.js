@@ -11,7 +11,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: "",
+  message: null,
 };
 
 export const getOffers = createAsyncThunk(

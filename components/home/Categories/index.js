@@ -75,34 +75,33 @@ const Categories = () => {
             </CategoriesRow>
             <Divider lg />
             {listCategory &&
-              listCategory.map((item, index) =>
-                index === tabSelectedIndex ? (
-                  <TabPanel key={item._id}>
-                    <CenterContent>
-                      <CategoriesRow fw>
-                        <CategoriesBox>
-                          <CategoriesGrid>
-                            {featuredCategories &&
-                              listData.map((item) => (
-                                <CategoriesProductItem
-                                  key={item._id}
-                                  productData={item}
-                                />
-                              ))}
-                          </CategoriesGrid>
-                        </CategoriesBox>
-                        <CategoriesBox>
-                          <SingleSlider />
-                        </CategoriesBox>
-                      </CategoriesRow>
-                      <ButtonViewMore m="70px 0 0 0">
-                        View More Laptops
-                      </ButtonViewMore>
-                    </CenterContent>
-                  </TabPanel>
-                ) : (
-                  <TabPanel key={item._id}></TabPanel>
-                )
+              listCategory.map(
+                (item, index) =>
+                  index === tabSelectedIndex && (
+                    <TabPanel key={item._id}>
+                      <CenterContent>
+                        <CategoriesRow fw>
+                          <CategoriesBox>
+                            <CategoriesGrid>
+                              {featuredCategories &&
+                                listData.map((item) => (
+                                  <CategoriesProductItem
+                                    key={item._id}
+                                    productData={item}
+                                  />
+                                ))}
+                            </CategoriesGrid>
+                          </CategoriesBox>
+                          <CategoriesBox>
+                            <SingleSlider />
+                          </CategoriesBox>
+                        </CategoriesRow>
+                        <ButtonViewMore m="70px 0 0 0">
+                          View More Laptops
+                        </ButtonViewMore>
+                      </CenterContent>
+                    </TabPanel>
+                  )
               )}
           </Tabs>
         )

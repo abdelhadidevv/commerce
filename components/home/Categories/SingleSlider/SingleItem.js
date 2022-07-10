@@ -28,6 +28,8 @@ const SingleItem = ({ itemData }) => {
           height={630}
           objectFit="contain"
           src={itemData.image}
+          blurDataURL={itemData.image}
+          placeholder="blur"
           loading="lazy"
           alt=""
         />

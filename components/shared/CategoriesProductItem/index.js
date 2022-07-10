@@ -29,6 +29,8 @@ const CategoriesProductItem = ({ productData }) => {
           height={270}
           objectFit="contain"
           src={productData?.images}
+          blurDataURL={productData?.images}
+          placeholder="blur"
           alt=""
           loading="lazy"
         />

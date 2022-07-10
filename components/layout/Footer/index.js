@@ -56,10 +56,11 @@ const Footer = () => {
             </StyledTextSm>
             <StyledRow gap="17px" equal>
               <StyledInfo>
-                <StyledIcon sm src="/images/icons/phone.svg" /> +1 234 567 89 10
+                <StyledIcon sm src="/images/icons/phone.svg" alt="" /> +1 234
+                567 89 10
               </StyledInfo>
               <StyledInfo>
-                <StyledIcon sm src="/images/icons/email.svg" />
+                <StyledIcon sm src="/images/icons/email.svg" alt="" />
                 support@khoomi.com
               </StyledInfo>
             </StyledRow>
@@ -69,8 +70,8 @@ const Footer = () => {
         <StyledRow justify="space-between">
           <CopyRights>all copyRights are reserved @2022</CopyRights>
           <StyledRow gap="33px">
-            <StyledIcon src="/images/icons/facebook.svg" />
-            <StyledIcon src="/images/icons/whatsapp.svg" />
+            <StyledIcon src="/images/icons/facebook.svg" alt="" />
+            <StyledIcon src="/images/icons/whatsapp.svg" alt="" />
           </StyledRow>
         </StyledRow>
       </StyledColumn>
