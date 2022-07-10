@@ -9,3 +9,4 @@ import productsReducer from "./features/products/productsSlice";
    },
  });
 export default store;
+

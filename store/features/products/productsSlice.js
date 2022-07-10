@@ -126,6 +126,18 @@ export const productsSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    rehydrate: (state, action) => {
+      state.offers = action.payload.offers;
+      state.featuredCategories = action.payload.featuredCategories;
+      state.featuredProducts = action.payload.featuredProducts;
+      state.trendingProducts = action.payload.trendingProducts;
+      state.allCategory = action.payload.allCategory;
+      state.productById = action.payload.productById;
+      state.isSuccess = action.payload.isSuccess;
+      state.isLoading = action.payload.isLoading;
+      state.isError = action.payload.isError;
+      state.message = action.payload.message;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -226,6 +238,6 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { reset } = productsSlice.actions;
+export const { rehydrate, reset } = productsSlice.actions;
 
 export default productsSlice.reducer;

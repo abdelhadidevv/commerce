@@ -27,7 +27,7 @@ const ProductItem = ({ productData }) => {
         />
       </ProductImageBox>
       <ProductName>{productData.name}</ProductName>
-      <ProductPrice>{productData.price}</ProductPrice>
+      <ProductPrice>${productData.price}</ProductPrice>
       <MoreInfo>
         More info &nbsp;
         <Image

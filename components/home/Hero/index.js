@@ -15,9 +15,13 @@ const Hero = () => {
   );
 
   return (
-    <HeroContainer img={offers[0]?.imageBanner}>
-      <Title>{offers[0]?.name}</Title>
-      <SubTitle>{offers[0]?.description}</SubTitle>
+    <HeroContainer img={offers && offers[0]?.imageBanner}>
+      <Title>{offers ? offers[0]?.name : "PlayStation 5"}</Title>
+      <SubTitle>
+        {offers
+          ? offers[0]?.description
+          : "lightning-fast download speed with super-fast ssd storage"}
+      </SubTitle>
       <SpaceBetweenBox>
         <BtnStartShopping>
           Start Shopping
