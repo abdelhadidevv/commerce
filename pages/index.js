@@ -5,6 +5,7 @@ import Categories from "../components/home/Categories";
 import Products from "../components/home/Products";
 import Trending from "../components/home/Trending";
 import { useDispatch } from "react-redux";
+import store from "../store";
 import {
   getOffers,
   getFeaturedCategories,
@@ -12,20 +13,16 @@ import {
   getFeaturedProducts,
   getTrendingProducts,
   reset,
+  rehydrate,
 } from "../store/features/products/productsSlice";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function Home({ initialState }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOffers());
-    dispatch(getFeaturedCategories());
-    dispatch(getAllCategory());
-    dispatch(getFeaturedProducts());
-    dispatch(getTrendingProducts());
-    dispatch(reset());
-  }, []);
+    dispatch(rehydrate(initialState.products));
+  }, [dispatch, initialState]);
 
   return (
     <LayoutPage mt0>
@@ -36,4 +33,18 @@ export default function Home() {
       <Trending />
     </LayoutPage>
   );
+}
+
+export async function getServerSideProps() {
+  await store.dispatch(getOffers());
+  await store.dispatch(getFeaturedCategories());
+  await store.dispatch(getAllCategory());
+  await store.dispatch(getFeaturedProducts());
+  await store.dispatch(getTrendingProducts());
+
+  return {
+    props: {
+      initialState: store.getState(),
+    },
+  };
 }

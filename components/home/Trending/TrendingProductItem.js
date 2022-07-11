@@ -24,6 +24,8 @@ const TrendingProductItem = ({ productData }) => {
           objectFit="contain"
           src={productData.images}
           loading="lazy"
+          blurDataURL={productData.images}
+          placeholder="blur"
           alt=""
         />
       </ImageBox>

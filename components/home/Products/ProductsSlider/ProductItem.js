@@ -23,11 +23,13 @@ const ProductItem = ({ productData }) => {
           height={150}
           objectFit="contain"
           src={productData.images}
+          blurDataURL={productData.images}
+          placeholder="blur"
           alt=""
         />
       </ProductImageBox>
       <ProductName>{productData.name}</ProductName>
-      <ProductPrice>{productData.price}</ProductPrice>
+      <ProductPrice>${productData.price}</ProductPrice>
       <MoreInfo>
         More info &nbsp;
         <Image

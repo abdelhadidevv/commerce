@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import Spinner from "../../../shared/Spinner";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -104,13 +105,18 @@ const ProductsSlider = () => {
 
   return (
     <ProductsSliderContainer>
-      <Slider {...settings}>
-        {listData &&
-          listData.map((item) => (
-            <ProductItem key={item._id} productData={item} />
-          ))}
-        <style jsx>{``}</style>
-      </Slider>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Slider {...settings}>
+          {listData &&
+            listData.length > 0 &&
+            listData.map((item) => (
+              <ProductItem key={item._id} productData={item} />
+            ))}
+          <style jsx>{``}</style>
+        </Slider>
+      )}
     </ProductsSliderContainer>
   );
 };
