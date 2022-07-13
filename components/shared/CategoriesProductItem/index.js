@@ -28,7 +28,11 @@ const CategoriesProductItem = ({ productData }) => {
           width={300}
           height={270}
           objectFit="contain"
-          src={productData?.images}
+          src={
+            Array.isArray(productData?.images)
+              ? productData?.images[0]
+              : productData?.images
+          }
           blurDataURL={productData?.images}
           placeholder="blur"
           alt=""

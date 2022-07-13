@@ -21,7 +21,7 @@ export const Column = styled.div`
   margin: ${({ margin }) => margin && margin};
 `;
 
-export const ProductDetailsContainer = styled.div`
+export const ProductDetailsContainer = styled.form`
   width: 100%;
   padding-top: 42px;
   padding-bottom: 94px;

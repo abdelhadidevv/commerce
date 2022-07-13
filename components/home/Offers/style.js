@@ -8,7 +8,7 @@ export const OffersBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./images/offers.png");
+  background-image: url("/images/offers.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 0px 200px;

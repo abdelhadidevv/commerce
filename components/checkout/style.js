@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { mobile } from "../../utils/media";
 import { PaymentButton } from "../cart/style";
 
-export const CheckoutContainer = styled.div`
+export const CheckoutContainer = styled.form`
   display: flex;
   flex-direction: column;
   padding: 55px 60px 60px;

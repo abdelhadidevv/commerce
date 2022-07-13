@@ -12,7 +12,6 @@ import {
   getAllCategory,
   getFeaturedProducts,
   getTrendingProducts,
-  reset,
   rehydrate,
 } from "../store/features/products/productsSlice";
 import { useEffect } from "react";
@@ -35,7 +34,7 @@ export default function Home({ initialState }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await store.dispatch(getOffers());
   await store.dispatch(getFeaturedCategories());
   await store.dispatch(getAllCategory());

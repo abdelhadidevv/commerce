@@ -70,7 +70,7 @@ export const AvatarBox = styled.div`
 export const GridInfo = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-right: 250px;
+  margin-right: 130px;
   grid-gap: 19px;
   ${mobile(
     css`

@@ -33,12 +33,18 @@ const productById = async (productId) => {
   return response.data;
 };
 
+const productsByCategory = async (category) => {
+  const response = await axios.get(API_URL + `products/category/${category}`);
+  return response.data;
+};
+
 const productsService = {
   offers,
   featuredCategories,
   allCategory,
   featuredProducts,
   trendingProducts,
+  productsByCategory,
   productById,
 };
 

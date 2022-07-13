@@ -28,6 +28,7 @@
 .react-tabs__tab {
   display: inline-block;
   bottom: -1px;
+  white-space: nowrap;
   position: relative;
   cursor: pointer;
   list-style: none;

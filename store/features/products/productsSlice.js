@@ -7,6 +7,7 @@ const initialState = {
   featuredProducts: [],
   trendingProducts: [],
   allCategory: [],
+  productsByCategory: [],
   productById: null,
   isError: false,
   isSuccess: false,
@@ -116,6 +117,23 @@ export const getProductById = createAsyncThunk(
   }
 );
 
+export const getProductsByCategory = createAsyncThunk(
+  "products/by-category",
+  async (category, thunkAPI) => {
+    try {
+      return await productsService.productsByCategory(category);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -132,6 +150,7 @@ export const productsSlice = createSlice({
       state.featuredProducts = action.payload.featuredProducts;
       state.trendingProducts = action.payload.trendingProducts;
       state.allCategory = action.payload.allCategory;
+      state.productsByCategory = action.payload.productsByCategory;
       state.productById = action.payload.productById;
       state.isSuccess = action.payload.isSuccess;
       state.isLoading = action.payload.isLoading;
@@ -218,6 +237,22 @@ export const productsSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.trendingProducts = null;
+      });
+
+    builder
+      .addCase(getProductsByCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductsByCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.productsByCategory = action.payload;
+      })
+      .addCase(getProductsByCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.productsByCategory = null;
       });
 
     builder

@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Spinner from "../../../shared/Spinner";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -54,8 +53,9 @@ function SamplePrevArrow(props) {
 }
 
 const ProductsSlider = () => {
-  const { featuredProducts, isLoading, isError, isSuccess, message } =
-    useSelector((state) => state.products);
+  const { featuredProducts, isError, isSuccess, message } = useSelector(
+    (state) => state.products
+  );
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
@@ -105,18 +105,12 @@ const ProductsSlider = () => {
 
   return (
     <ProductsSliderContainer>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <Slider {...settings}>
-          {listData &&
-            listData.length > 0 &&
-            listData.map((item) => (
-              <ProductItem key={item._id} productData={item} />
-            ))}
-          <style jsx>{``}</style>
-        </Slider>
-      )}
+      <Slider {...settings}>
+        {listData.map((item) => (
+          <ProductItem key={item._id} productData={item} />
+        ))}
+        <style jsx>{``}</style>
+      </Slider>
     </ProductsSliderContainer>
   );
 };

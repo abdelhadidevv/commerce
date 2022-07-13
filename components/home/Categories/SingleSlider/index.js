@@ -19,8 +19,9 @@ var settings = {
 };
 
 const SingleSlider = () => {
-  const { featuredCategories, isLoading, isError, isSuccess, message } =
-    useSelector((state) => state.products);
+  const { featuredCategories, isError, isSuccess, message } = useSelector(
+    (state) => state.products
+  );
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
@@ -44,10 +45,9 @@ const SingleSlider = () => {
   return (
     <SingleSliderContainer>
       <Slider {...settings}>
-        {featuredCategories &&
-          listData?.map((item) => (
-            <SingleItem itemData={item} key={Math.random()} />
-          ))}
+        {listData?.map((item) => (
+          <SingleItem itemData={item} key={Math.random()} />
+        ))}
       </Slider>
     </SingleSliderContainer>
   );

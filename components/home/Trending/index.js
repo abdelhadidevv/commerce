@@ -3,11 +3,11 @@ import TrendingProductItem from "./TrendingProductItem";
 import { StyledLgTitle, StyledSmTitle } from "../../shared/Title";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Spinner from "../../shared/Spinner";
 
 const Trending = () => {
-  const { trendingProducts, isLoading, isError, isSuccess, message } =
-    useSelector((state) => state.products);
+  const { trendingProducts, isError, isSuccess, message } = useSelector(
+    (state) => state.products
+  );
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
@@ -17,20 +17,13 @@ const Trending = () => {
   }, [trendingProducts, isSuccess]);
   return (
     <TrendingContainer>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          <StyledSmTitle>TOP PRODUCTS</StyledSmTitle>
-          <StyledLgTitle>Trending This Week</StyledLgTitle>
-          <StyledBox>
-            {listData &&
-              listData.map((item) => (
-                <TrendingProductItem key={item._id} productData={item} />
-              ))}
-          </StyledBox>
-        </>
-      )}
+      <StyledSmTitle>TOP PRODUCTS</StyledSmTitle>
+      <StyledLgTitle>Trending This Week</StyledLgTitle>
+      <StyledBox>
+        {listData.map((item) => (
+          <TrendingProductItem key={item._id} productData={item} />
+        ))}
+      </StyledBox>
     </TrendingContainer>
   );
 };
