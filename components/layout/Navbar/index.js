@@ -6,9 +6,13 @@ import {
   StyledLink,
   StyledButton,
   StyledBoxMobile,
+  StyledText,
+  StyledCartBox,
 } from "./style";
 import NextLink from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 export const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href;
@@ -22,6 +26,10 @@ export const LinkItem = ({ href, path, target, children, ...props }) => {
 };
 
 const Navbar = ({ path }) => {
+  const { user, isError, isLogin, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
   return (
     <StyledNavbar>
       {/* normal view */}
@@ -53,10 +61,25 @@ const Navbar = ({ path }) => {
           Accessories
         </LinkItem>
       </StyledBox>
-      <StyledBox>
-        <NextLink href="/login">
-          <StyledButton>Sign Up</StyledButton>
-        </NextLink>
+      <StyledBox gap="14px">
+        {!isLogin ? (
+          <NextLink href="/login">
+            <StyledButton>Sign In</StyledButton>
+          </NextLink>
+        ) : (
+          <>
+            <StyledIcon src="/images/icons/haret-outline.svg" alt="" />
+            <NextLink href="/profile">
+              <StyledIcon src="/images/icons/profile.svg" alt="" />
+            </NextLink>
+            <StyledText>0.00$</StyledText>
+            <NextLink href="/cart">
+              <StyledCartBox>
+                <StyledIcon src="/images/icons/cart-fill.svg" alt="" />
+              </StyledCartBox>
+            </NextLink>
+          </>
+        )}
       </StyledBox>
       {/* mobile view */}
       <StyledBoxMobile>
@@ -66,9 +89,11 @@ const Navbar = ({ path }) => {
         <Image width={188} height={39} src="/images/logo.png" alt="logo" />
       </StyledBoxMobile>
       <StyledBoxMobile>
-        <NextLink href="/login">
-          <StyledButton>Login</StyledButton>
-        </NextLink>
+        {!isLogin && (
+          <NextLink href="/login">
+            <StyledButton>Sign In</StyledButton>
+          </NextLink>
+        )}
       </StyledBoxMobile>
     </StyledNavbar>
   );

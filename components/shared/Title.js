@@ -7,6 +7,7 @@ export const StyledLgTitle = styled.h2`
   color: #111111;
   text-transform: uppercase;
   text-align: left;
+  white-space: nowrap;
   ${mobile(
     css`
       text-align: center;

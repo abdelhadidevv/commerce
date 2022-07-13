@@ -5,7 +5,7 @@ export const HeroContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: ${({ img }) =>
-    img ? `url(${img})` : `url(./images/bg.png)`};
+    img ? `url(${img})` : `url(/images/bg.png)`};
   background-size: cover;
   background-repeat: no-repeat;
   padding: 0px 60px;

@@ -32,15 +32,25 @@ export const StyledBox = styled.div`
   ${mobile(css`
     display: none;
   `)}
+  ${mobile(
+    css`
+      gap: ${({ gap }) => gap === "40px" && "30px"};
+    `,
+    1440
+  )}
 `;
+
 export const StyledBoxMobile = styled(StyledBox)`
   ${mobile(css`
     display: flex;
     flex-direction: column;
   `)}
-  ${desktop(css`
-    display: none;
-  `)}
+  ${desktop(
+    css`
+      display: none;
+    `,
+    1335
+  )}
 `;
 
 export const StyledSelect = styled.select`
@@ -56,6 +66,7 @@ export const StyledSelect = styled.select`
 export const StyledIcon = styled.img`
   width: 18px;
   height: 18px;
+  cursor: pointer;
 `;
 
 export const StyledLink = styled.a`
@@ -85,4 +96,26 @@ export const StyledButton = styled.button`
     box-shadow: none;
     background: none;
   `)}
+`;
+
+export const StyledText = styled.p`
+  font-size: 18px;
+  color: #32353c;
+  font-weight: 300;
+  white-space: nowrap;
+  ${mobile(css`
+    width: auto;
+    font-size: 14px;
+  `)}
+`;
+
+export const StyledCartBox = styled.div`
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 6%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 `;

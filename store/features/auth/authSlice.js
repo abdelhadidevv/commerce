@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService";
 
-let user = "";
+let user = null;
 if (typeof window !== "undefined") {
   user = JSON.parse(localStorage.getItem("user"));
 }
@@ -11,7 +11,8 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: "",
+  isLogin: false,
+  message: null,
 };
 
 export const login = createAsyncThunk(
@@ -56,7 +57,10 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
-      state.message = "";
+      state.message = null;
+    },
+    isUserAuthenticated: (state) => {
+      state.isLogin = state.user ? true : false;
     },
   },
   extraReducers: (builder) => {
@@ -76,24 +80,24 @@ export const authSlice = createSlice({
         state.user = null;
       });
 
-      builder
-        .addCase(signup.pending, (state) => {
-          state.isLoading = true;
-        })
-        .addCase(signup.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.isSuccess = true;
-          state.user = action.payload;
-        })
-        .addCase(signup.rejected, (state, action) => {
-          state.isLoading = false;
-          state.isError = true;
-          state.message = action.payload;
-          state.user = null;
-        });
+    builder
+      .addCase(signup.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signup.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      });
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, isUserAuthenticated } = authSlice.actions;
 
 export default authSlice.reducer;

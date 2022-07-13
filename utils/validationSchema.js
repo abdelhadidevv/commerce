@@ -13,3 +13,8 @@ export const SignUpSchema = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords don't match!")
     .required("Required"),
 });
+
+export const AddToCartSchema = Yup.object().shape({
+  productId: Yup.string().required("Required"),
+  qty: Yup.number(),
+});

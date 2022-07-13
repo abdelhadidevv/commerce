@@ -18,32 +18,47 @@ import { Divider } from "../../components/shared/Divider";
 import Spinner from "../../components/shared/Spinner";
 import {
   getProductById,
-  reset,
+  rehydrate,
 } from "../../store/features/products/productsSlice";
+import { addToCart, reset } from "../../store/features/user/userSlice";
+import { AddToCartSchema } from "../../utils/validationSchema";
+import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import store from "../../store";
 
-const ProductDetails = () => {
-  const router = useRouter();
-  const { productId } = router.query;
+const ProductDetails = ({ initialState }) => {
   const dispatch = useDispatch();
-  const { productById, isLoading, isError, isSuccess, message } = useSelector(
+  const router = useRouter();
+  const { productById, isError, isSuccess, message } = useSelector(
     (state) => state.products
   );
+  const user = useSelector((state) => state.user);
+
   const [product, setProduct] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
 
-  useEffect(() => {
-    if (!router.isReady) return;
+  const formik = useFormik({
+    initialValues: {
+      productId: "",
+      qty: 1,
+    },
+    validationSchema: AddToCartSchema,
+    onSubmit: (values) => {
+      dispatch(addToCart(values));
+      alert("added !")
+    },
+  });
 
-    dispatch(getProductById(productId));
-    dispatch(reset());
-  }, [router]);
+  useEffect(() => {
+    dispatch(rehydrate(initialState.products));
+  }, [dispatch, initialState]);
 
   useEffect(() => {
     if (isSuccess && productById) {
       setProduct(productById);
+      formik.setFieldValue("productId", product?._id);
     }
   }, [productById, isSuccess]);
 
@@ -53,63 +68,59 @@ const ProductDetails = () => {
 
   return (
     <LayoutPage title="ProductDetails">
-      {isLoading ? (
-        <Spinner fill />
-      ) : (
-        product && (
-          <ProductDetailsContainer>
-            <DetailsContent>
-              <DetailsColumn>
-                <ImageDisplay src={product?.images[imageIndex]} />
-                <RowGap gap="13px">
-                  {product?.images?.map((item, index) => (
-                    <SmImageBox
-                      key={item}
-                      onClick={() => handleImageIndex(index)}
-                    >
-                      <SmImageDisplay src={item} />
-                    </SmImageBox>
-                  ))}
-                </RowGap>
-              </DetailsColumn>
+      {product && (
+        <ProductDetailsContainer onSubmit={formik.handleSubmit}>
+          <DetailsContent>
+            <DetailsColumn>
+              <ImageDisplay src={product?.images[imageIndex]} />
+              <RowGap gap="13px">
+                {product?.images?.map((item, index) => (
+                  <SmImageBox
+                    key={item}
+                    onClick={() => handleImageIndex(index)}
+                  >
+                    <SmImageDisplay src={item} />
+                  </SmImageBox>
+                ))}
+              </RowGap>
+            </DetailsColumn>
 
-              <DetailsColumn>
-                <ProductTitle>{product?.name}</ProductTitle>
-                <SmText color="#9B9A9A">{product?.description}</SmText>
-                <SmText color="#707070" fz="20px" mt="10px">
-                  Availability in stock:{" "}
-                  {product?.countInStock > 0 ? (
-                    <Span>Available</Span>
-                  ) : (
-                    <Span red>Out of Stock</Span>
-                  )}
-                </SmText>
-                <Divider />
-                <SmText fw="600" mt="25px">
-                  Choose your combination
-                </SmText>
-                <RowGap gap="40px">
-                  {product?.colors?.map((item) => (
-                    <RadioColor
-                      key={item._id}
-                      id={item._id}
-                      c1={item.one}
-                      c2={item.two}
-                    />
-                  ))}
-                </RowGap>
-                <GetSelectOption
-                  title="Size and Weight"
-                  options={product?.size}
-                />
-                <GetSelectOption title="Chip" options={product?.chip} />
-                <GetSelectOption title="Storage" options={product?.storage} />
-                <GetSelectOption title="Memory" options={product?.memory} />
-                <Button>Add To Cart</Button>
-              </DetailsColumn>
-            </DetailsContent>
-          </ProductDetailsContainer>
-        )
+            <DetailsColumn>
+              <ProductTitle>{product?.name}</ProductTitle>
+              <SmText color="#9B9A9A">{product?.description}</SmText>
+              <SmText color="#707070" fz="20px" mt="10px">
+                Availability in stock:{" "}
+                {product?.countInStock > 0 ? (
+                  <Span>Available</Span>
+                ) : (
+                  <Span red>Out of Stock</Span>
+                )}
+              </SmText>
+              <Divider />
+              <SmText fw="600" mt="25px">
+                Choose your combination
+              </SmText>
+              <RowGap gap="40px">
+                {product?.colors?.map((item) => (
+                  <RadioColor
+                    key={item._id}
+                    id={item._id}
+                    c1={item.one}
+                    c2={item.two}
+                  />
+                ))}
+              </RowGap>
+              <GetSelectOption
+                title="Size and Weight"
+                options={product?.size}
+              />
+              <GetSelectOption title="Chip" options={product?.chip} />
+              <GetSelectOption title="Storage" options={product?.storage} />
+              <GetSelectOption title="Memory" options={product?.memory} />
+              <Button type="submit">Add To Cart</Button>
+            </DetailsColumn>
+          </DetailsContent>
+        </ProductDetailsContainer>
       )}
     </LayoutPage>
   );
@@ -133,3 +144,13 @@ const GetSelectOption = ({ title, options }) =>
       </Select>
     </>
   );
+
+export async function getServerSideProps({ params }) {
+  await store.dispatch(getProductById(params.productId));
+
+  return {
+    props: {
+      initialState: store.getState(),
+    },
+  };
+}
