@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productsService from "./productsService";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   offers: [],
@@ -144,135 +145,122 @@ export const productsSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
-    rehydrate: (state, action) => {
-      state.offers = action.payload.offers;
-      state.featuredCategories = action.payload.featuredCategories;
-      state.featuredProducts = action.payload.featuredProducts;
-      state.trendingProducts = action.payload.trendingProducts;
-      state.allCategory = action.payload.allCategory;
-      state.productsByCategory = action.payload.productsByCategory;
-      state.productById = action.payload.productById;
-      state.isSuccess = action.payload.isSuccess;
-      state.isLoading = action.payload.isLoading;
-      state.isError = action.payload.isError;
-      state.message = action.payload.message;
-    },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getOffers.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getOffers.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.offers = action.payload;
-      })
-      .addCase(getOffers.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.offers = null;
-      });
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.products,
+      };
+    },
 
-    builder
-      .addCase(getFeaturedCategories.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getFeaturedCategories.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.featuredCategories = action.payload;
-      })
-      .addCase(getFeaturedCategories.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.featuredCategories = null;
-      });
+    [getOffers.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getOffers.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.offers = action.payload;
+    },
+    [getOffers.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.offers = null;
+    },
 
-    builder
-      .addCase(getAllCategory.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getAllCategory.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.allCategory = action.payload;
-      })
-      .addCase(getAllCategory.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.allCategory = null;
-      });
+    [getFeaturedCategories.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getFeaturedCategories.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.featuredCategories = action.payload;
+    },
+    [getFeaturedCategories.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.featuredCategories = null;
+    },
 
-    builder
-      .addCase(getFeaturedProducts.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getFeaturedProducts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.featuredProducts = action.payload;
-      })
-      .addCase(getFeaturedProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.featuredProducts = null;
-      });
+    [getAllCategory.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getAllCategory.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.allCategory = action.payload;
+    },
+    [getAllCategory.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.allCategory = null;
+    },
 
-    builder
-      .addCase(getTrendingProducts.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getTrendingProducts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.trendingProducts = action.payload;
-      })
-      .addCase(getTrendingProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.trendingProducts = null;
-      });
+    [getFeaturedProducts.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getFeaturedProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.featuredProducts = action.payload;
+    },
+    [getFeaturedProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.featuredProducts = null;
+    },
 
-    builder
-      .addCase(getProductsByCategory.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getProductsByCategory.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.productsByCategory = action.payload;
-      })
-      .addCase(getProductsByCategory.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.productsByCategory = null;
-      });
+    [getTrendingProducts.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getTrendingProducts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.trendingProducts = action.payload;
+    },
+    [getTrendingProducts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.trendingProducts = null;
+    },
 
-    builder
-      .addCase(getProductById.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getProductById.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.productById = action.payload;
-      })
-      .addCase(getProductById.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.productById = null;
-      });
+    [getProductsByCategory.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getProductsByCategory.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.productsByCategory = action.payload;
+    },
+    [getProductsByCategory.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.productsByCategory = null;
+    },
+
+    [getProductById.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [getProductById.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.productById = action.payload;
+    },
+    [getProductById.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.productById = null;
+    },
   },
 });
 
-export const { rehydrate, reset } = productsSlice.actions;
+export const { reset } = productsSlice.actions;
 
 export default productsSlice.reducer;
