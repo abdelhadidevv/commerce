@@ -15,28 +15,22 @@ import {
 } from "../../components/product-details/style";
 import RadioColor from "../../components/shared/RadioColor";
 import { Divider } from "../../components/shared/Divider";
-import Spinner from "../../components/shared/Spinner";
-import {
-  getProductById,
-  rehydrate,
-} from "../../store/features/products/productsSlice";
+import { wrapper } from "../../store/store";
+import { getProductById } from "../../store/features/products/productsSlice";
 import { addToCart, reset } from "../../store/features/user/userSlice";
 import { AddToCartSchema } from "../../utils/validationSchema";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import store from "../../store";
 
-const ProductDetails = ({ initialState }) => {
+const ProductDetails = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { productById, isError, isSuccess, message } = useSelector(
     (state) => state.products
   );
   const user = useSelector((state) => state.user);
-
-  const [product, setProduct] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
 
   const formik = useFormik({
@@ -47,18 +41,13 @@ const ProductDetails = ({ initialState }) => {
     validationSchema: AddToCartSchema,
     onSubmit: (values) => {
       dispatch(addToCart(values));
-      alert("added !")
+      alert("added !");
     },
   });
 
   useEffect(() => {
-    dispatch(rehydrate(initialState.products));
-  }, [dispatch, initialState]);
-
-  useEffect(() => {
     if (isSuccess && productById) {
-      setProduct(productById);
-      formik.setFieldValue("productId", product?._id);
+      formik.setFieldValue("productId", productById?._id);
     }
   }, [productById, isSuccess]);
 
@@ -68,13 +57,13 @@ const ProductDetails = ({ initialState }) => {
 
   return (
     <LayoutPage title="ProductDetails">
-      {product && (
+      {productById && (
         <ProductDetailsContainer onSubmit={formik.handleSubmit}>
           <DetailsContent>
             <DetailsColumn>
-              <ImageDisplay src={product?.images[imageIndex]} />
+              <ImageDisplay src={productById?.images[imageIndex]} />
               <RowGap gap="13px">
-                {product?.images?.map((item, index) => (
+                {productById?.images?.map((item, index) => (
                   <SmImageBox
                     key={item}
                     onClick={() => handleImageIndex(index)}
@@ -86,11 +75,11 @@ const ProductDetails = ({ initialState }) => {
             </DetailsColumn>
 
             <DetailsColumn>
-              <ProductTitle>{product?.name}</ProductTitle>
-              <SmText color="#9B9A9A">{product?.description}</SmText>
+              <ProductTitle>{productById?.name}</ProductTitle>
+              <SmText color="#9B9A9A">{productById?.description}</SmText>
               <SmText color="#707070" fz="20px" mt="10px">
                 Availability in stock:{" "}
-                {product?.countInStock > 0 ? (
+                {productById?.countInStock > 0 ? (
                   <Span>Available</Span>
                 ) : (
                   <Span red>Out of Stock</Span>
@@ -101,7 +90,7 @@ const ProductDetails = ({ initialState }) => {
                 Choose your combination
               </SmText>
               <RowGap gap="40px">
-                {product?.colors?.map((item) => (
+                {productById?.colors?.map((item) => (
                   <RadioColor
                     key={item._id}
                     id={item._id}
@@ -112,11 +101,11 @@ const ProductDetails = ({ initialState }) => {
               </RowGap>
               <GetSelectOption
                 title="Size and Weight"
-                options={product?.size}
+                options={productById?.size}
               />
-              <GetSelectOption title="Chip" options={product?.chip} />
-              <GetSelectOption title="Storage" options={product?.storage} />
-              <GetSelectOption title="Memory" options={product?.memory} />
+              <GetSelectOption title="Chip" options={productById?.chip} />
+              <GetSelectOption title="Storage" options={productById?.storage} />
+              <GetSelectOption title="Memory" options={productById?.memory} />
               <Button type="submit">Add To Cart</Button>
             </DetailsColumn>
           </DetailsContent>
@@ -145,12 +134,13 @@ const GetSelectOption = ({ title, options }) =>
     </>
   );
 
-export async function getServerSideProps({ params }) {
-  await store.dispatch(getProductById(params.productId));
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ params }) => {
+      await store.dispatch(getProductById(params.productId));
 
-  return {
-    props: {
-      initialState: store.getState(),
-    },
-  };
-}
+      return {
+        props: {},
+      };
+    }
+);

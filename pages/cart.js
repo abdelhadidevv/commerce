@@ -9,19 +9,14 @@ import CartItem from "../components/cart/CartItem";
 import Image from "next/image";
 import Link from "next/link";
 import Spinner from "../components/shared/Spinner";
-import { useDispatch, useSelector } from "react-redux";
+import { wrapper } from "../store/store";
+import { useSelector } from "react-redux";
 import { getProfile } from "../store/features/user/userSlice";
-import { useEffect } from "react";
 
 const Cart = () => {
-  const dispatch = useDispatch();
   const { profile, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
 
   return (
     <LayoutPage title="Cart" protected>
@@ -57,3 +52,11 @@ const Cart = () => {
 };
 
 export default Cart;
+
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  await store.dispatch(getProfile());
+
+  return {
+    props: {},
+  };
+});
