@@ -54,7 +54,7 @@ const Cart = () => {
 export default Cart;
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
-  await store.dispatch(getProfile());
+  // await store.dispatch(getProfile());
 
   return {
     props: {},

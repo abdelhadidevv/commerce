@@ -31,13 +31,13 @@ const Categories = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState(0);
 
   useEffect(() => {
-    if (isSuccess && featuredCategories) {
+    if (featuredCategories) {
       setListData(featuredCategories.filter((item, index) => index !== 0));
     }
-    if (isSuccess && allCategory) {
+    if (allCategory) {
       setListCategory(allCategory.categories);
     }
-  }, [featuredCategories, allCategory, isSuccess]);
+  }, [featuredCategories, allCategory]);
 
   return (
     <CategoriesContainer>
@@ -67,7 +67,7 @@ const Categories = () => {
         {listCategory &&
           listCategory.map((item, index) =>
             index === tabSelectedIndex ? (
-              <TabPanel key={item._id}>
+              <TabPanel key={item._id + "-" + index}>
                 <CenterContent>
                   <CategoriesRow fw>
                     <CategoriesBox>
@@ -103,7 +103,7 @@ const Categories = () => {
                 </CenterContent>
               </TabPanel>
             ) : (
-              <TabPanel key={item._id}></TabPanel>
+              <TabPanel key={item._id + "-" + index}></TabPanel>
             )
           )}
       </Tabs>

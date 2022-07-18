@@ -138,9 +138,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ params }) => {
       await store.dispatch(getProductById(params.productId));
-
-      return {
-        props: {},
-      };
     }
 );

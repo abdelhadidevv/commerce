@@ -1,19 +1,30 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
-// import sessionStorage from "redux-persist/lib/storage/session";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import authReducer from "./features/auth/authSlice";
 import productsReducer from "./features/products/productsSlice";
 import userReducer from "./features/user/userSlice";
 
-const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    products: productsReducer,
-    user: userReducer,
-  },
-  devTools: true,
+const combinedReducer = combineReducers({
+  auth: authReducer,
+  products: productsReducer,
+  user: userReducer,
 });
 
-const makeStore = () => store;
+const masterReducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload,
+    };
+    return nextState;
+  } else {
+    return combinedReducer(state, action);
+  }
+};
 
-export const wrapper = createWrapper(makeStore);
+const makeStore = () =>
+  configureStore({
+    reducer: masterReducer,
+  });
+
+export const wrapper = createWrapper(makeStore, { devTools: true });

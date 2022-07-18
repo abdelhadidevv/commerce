@@ -5,34 +5,30 @@ import "nprogress/nprogress.css";
 import NProgress from "nprogress";
 import Router from "next/router";
 import Layout from "../components/layout";
-import { wrapper } from "../store/store.js";
-import { useEffect, useState } from "react";
-
+import { wrapper } from "../store/store";
+import { useEffect } from "react";
+import { isUserAuthenticated } from "../store/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 // Binding events to display spinner when user navigate between routes
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function Website({ Component, pageProps, router }) {
-  // const [showing, setShowing] = useState(false);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   setShowing(true);
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("user"));
+      dispatch(isUserAuthenticated(user));
+    }
+  }, []);
 
-  // if (!showing) {
-  //   return null;
-  // }
-
-  // if (typeof window === "undefined") {
-  //   return <></>;
-  // } else {
-    return (
-      <Layout router={router}>
-        <Component {...pageProps} />
-      </Layout>
-    );
-  // }
+  return (
+    <Layout router={router}>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
 export default wrapper.withRedux(Website);
