@@ -31,8 +31,4 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.dispatch(getAllCategory());
   await store.dispatch(getFeaturedProducts());
   await store.dispatch(getTrendingProducts());
-
-  return {
-    props: {},
-  };
 });

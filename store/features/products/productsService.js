@@ -1,4 +1,5 @@
 import axios from "axios";
+import stringify from "../../../utils/stringify";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const offers = async () => {

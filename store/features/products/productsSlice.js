@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productsService from "./productsService";
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   offers: [],
@@ -20,6 +19,7 @@ export const getOffers = createAsyncThunk(
   "products/offers",
   async (thunkAPI) => {
     try {
+            // JSON.parse(JSON.stringify(props));
       return await productsService.offers();
     } catch (error) {
       const message =
@@ -147,13 +147,6 @@ export const productsSlice = createSlice({
     },
   },
   extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.products,
-      };
-    },
-
     [getOffers.pending]: (state, action) => {
       state.isLoading = true;
     },
