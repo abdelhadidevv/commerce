@@ -22,9 +22,12 @@ const masterReducer = (state, action) => {
   }
 };
 
-const makeStore = () =>
-  configureStore({
-    reducer: masterReducer,
-  });
+const store = configureStore({
+  reducer: masterReducer,
+});
+
+const makeStore = () => {
+  return store;
+};
 
 export const wrapper = createWrapper(makeStore, { devTools: true });
