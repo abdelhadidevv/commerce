@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { login, reset } from "../store/features/auth/authSlice";
 import { useRouter } from "next/router";
+import { getSession, signIn } from "next-auth/react";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -37,8 +38,16 @@ const Login = () => {
       password: "omarAlhafni@123456",
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      dispatch(login(values));
+    onSubmit: async (values) => {
+      const result = await signIn("credentials", {
+        ...values,
+        redirect: false,
+      });
+      if (!result.error) {
+        router.replace(`/`);
+      } else {
+        setErrorMessage(result.error);
+      }
     },
   });
 
