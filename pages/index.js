@@ -12,6 +12,7 @@ import {
   getFeaturedProducts,
   getTrendingProducts,
 } from "../store/features/products/productsSlice";
+import { getSession } from "next-auth/react";
 
 export default function Home() {
   return (
@@ -25,10 +26,14 @@ export default function Home() {
   );
 }
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
-  await store.dispatch(getOffers());
-  await store.dispatch(getFeaturedCategories());
-  await store.dispatch(getAllCategory());
-  await store.dispatch(getFeaturedProducts());
-  await store.dispatch(getTrendingProducts());
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    const session = await getSession({ req: ctx.req });
+    console.log("sessionState", session);
+    await store.dispatch(getOffers());
+    await store.dispatch(getFeaturedCategories());
+    await store.dispatch(getAllCategory());
+    await store.dispatch(getFeaturedProducts());
+    await store.dispatch(getTrendingProducts());
+  }
+);

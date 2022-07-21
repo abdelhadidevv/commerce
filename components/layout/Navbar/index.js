@@ -12,18 +12,6 @@ import {
 import NextLink from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-
-export const LinkItem = ({ href, path, target, children, ...props }) => {
-  const active = path === href;
-  return (
-    <NextLink href={href} passHref scroll={false}>
-      <StyledLink active={active} target={target} {...props}>
-        {children}
-      </StyledLink>
-    </NextLink>
-  );
-};
 
 const Navbar = ({ path }) => {
   const { user, isError, isLogin, isSuccess, message } = useSelector(
@@ -100,3 +88,14 @@ const Navbar = ({ path }) => {
 };
 
 export default Navbar;
+
+export const LinkItem = ({ href, path, target, children, ...props }) => {
+  const active = path === href;
+  return (
+    <NextLink href={href} passHref scroll={false}>
+      <StyledLink active={active} target={target} {...props}>
+        {children}
+      </StyledLink>
+    </NextLink>
+  );
+};

@@ -3,10 +3,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const login = async (userData) => {
   const response = await axios.post(API_URL + "users/login", userData);
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-  return response.data;
+  return response;
 };
 
 const signup = async (userData) => {

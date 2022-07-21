@@ -10,7 +10,6 @@ import {
 import Image from "next/image";
 
 const CartItem = ({ itemData }) => {
-  console.log(itemData);
   return (
     <CartItemContainer>
       <ImageBox>
