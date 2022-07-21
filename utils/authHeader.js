@@ -1,10 +1,9 @@
 import axios from "axios";
 
-export function authHeader() {
-  let user = JSON.parse(localStorage.getItem("user"));
-  if (user?.token) {
+export function authHeader(token) {
+  if (token) {
     axios.defaults.headers.common = {
-      Authorization: `Bearer ${user?.token}`,
+      Authorization: `Bearer ${token}`,
     };
   }
 }
