@@ -17,16 +17,14 @@ import RadioColor from "../../components/shared/RadioColor";
 import { Divider } from "../../components/shared/Divider";
 import { wrapper } from "../../store/store";
 import { getProductById } from "../../store/features/products/productsSlice";
-import { addToCart, reset } from "../../store/features/user/userSlice";
+import { addToCart } from "../../store/features/user/userSlice";
 import { AddToCartSchema } from "../../utils/validationSchema";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const { productById, isError, isSuccess, message } = useSelector(
     (state) => state.products
   );

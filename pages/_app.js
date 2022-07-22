@@ -13,6 +13,9 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 function Website({ Component, pageProps: { session, ...pageProps }, router }) {
+  
+  if (typeof window === "undefined") return null;
+
   return (
     <SessionProvider session={pageProps.session}>
       <Layout router={router}>

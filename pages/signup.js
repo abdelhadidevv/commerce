@@ -26,9 +26,10 @@ import { useRouter } from "next/router";
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLogin, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  
   const router = useRouter();
 
   const formik = useFormik({
@@ -54,6 +55,11 @@ const SignUp = () => {
 
     dispatch(reset());
   }, [isError, isSuccess, message, router, dispatch]);
+
+  if (isLogin) {
+    router.push("/");
+    return null;
+  }
 
   return (
     <LayoutPage mt0 title="SignUp">
