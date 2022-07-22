@@ -29,7 +29,6 @@ export default function Home() {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const session = await getSession({ req: ctx.req });
-    console.log("sessionState", session);
     await store.dispatch(getOffers());
     await store.dispatch(getFeaturedCategories());
     await store.dispatch(getAllCategory());

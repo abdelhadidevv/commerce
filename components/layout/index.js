@@ -4,24 +4,15 @@ import Navbar from "./Navbar";
 import Fonts from "../fonts";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { isUserAuthenticated } from "../../store/features/auth/authSlice";
 
 const Layout = ({ children }) => {
   const routerHook = useRouter();
   const isShowNavAndFooter =
     routerHook.asPath !== "/signup" && routerHook.asPath !== "/login";
-  const { data } = useSession();
-  const dispatch = useDispatch();
+  const { status } = useSession();
+  const loading = status === "loading";
 
-  const checkIsLogin = async () => {
-    dispatch(isUserAuthenticated(data?.user?.token));
-  };
-  useEffect(() => {
-    checkIsLogin();
-    // eslint-disable-next-line
-  }, [data]);
+  if (loading) return null;
 
   return (
     <>

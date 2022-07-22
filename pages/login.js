@@ -18,16 +18,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { LoginSchema } from "../utils/validationSchema";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { login, reset } from "../store/features/auth/authSlice";
 import { useRouter } from "next/router";
-import { getSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLogin, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
   const router = useRouter();
@@ -51,17 +50,10 @@ const Login = () => {
     },
   });
 
-  useEffect(() => {
-    if (isError) {
-      setErrorMessage(message);
-    }
-
-    if (isSuccess && user) {
-      router.push("/");
-    }
-
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, router, dispatch]);
+  if (isLogin) {
+    router.push("/");
+    return null;
+  }
 
   return (
     <LayoutPage mt0 title="Login">

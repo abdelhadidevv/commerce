@@ -1,27 +1,21 @@
 import Head from "next/head";
 import { StyledLayoutPage } from "./style";
 import { isUserAuthenticated } from "../../../store/features/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { authHeader } from "../../../utils/authHeader";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
-const LayoutPage = ({ children, title, mt0, protectedPage }) => {
+const LayoutPage = ({ children, title, mt0 }) => {
   const t = `${title} - TechStore`;
   const dispatch = useDispatch();
-  const router = useRouter();
-  const { isLogin } = useSelector((state) => state.auth);
+  const { data } = useSession();
 
   useEffect(() => {
-    dispatch(isUserAuthenticated());
-  }, [title, dispatch]);
+    authHeader(data?.user?.token);
+    dispatch(isUserAuthenticated(data?.user?.token));
+  }, [data, title, dispatch]);
 
-  useEffect(() => {
-    if (isLogin) {
-      if (title === "Login" || title === "SignUp") {
-        router.push("/");
-      }
-    }
-  }, [isLogin, title, router]);
 
   return (
     <>
