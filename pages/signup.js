@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signup, reset } from "../store/features/auth/authSlice";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -29,7 +30,8 @@ const SignUp = () => {
   const { user, isLogin, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-  
+  const { status } = useSession();
+
   const router = useRouter();
 
   const formik = useFormik({
@@ -56,7 +58,7 @@ const SignUp = () => {
     dispatch(reset());
   }, [isError, isSuccess, message, router, dispatch]);
 
-  if (isLogin) {
+  if (status === authenticated) {
     router.push("/");
     return null;
   }

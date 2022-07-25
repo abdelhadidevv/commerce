@@ -18,7 +18,7 @@ import {
 } from "../components/profile/style";
 import Image from "next/image";
 import OrderItem from "../components/shared/OrderItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getProfile, getUserOrders } from "../store/features/user/userSlice";
 import { wrapper } from "../store/store";
 import { getSession } from "next-auth/react";
@@ -116,3 +116,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
     await store.dispatch(getUserOrders());
   }
 );
+
+Profile.auth = true;

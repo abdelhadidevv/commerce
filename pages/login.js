@@ -19,16 +19,16 @@ import Link from "next/link";
 import { LoginSchema } from "../utils/validationSchema";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const dispatch = useDispatch();
   const { user, isLogin, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  const { status } = useSession();
   const router = useRouter();
 
   const formik = useFormik({
@@ -41,17 +41,18 @@ const Login = () => {
       const result = await signIn("credentials", {
         ...values,
         redirect: false,
+        callbackUrl: `${window.location.origin}/`,
       });
-      if (!result.error) {
-        router.replace(`/`);
+      if (!result.error && result.ok) {
+        // console.log(result);
       } else {
         setErrorMessage(result.error);
       }
     },
   });
 
-  if (isLogin) {
-    router.push("/");
+  if (status === "authenticated") {
+    router.replace("/");
     return null;
   }
 
