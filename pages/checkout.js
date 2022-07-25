@@ -151,3 +151,5 @@ const OrderInfo = ({ title, value }) => {
     </StyledRow>
   );
 };
+
+Checkout.auth = true;

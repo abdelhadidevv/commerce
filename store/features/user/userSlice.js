@@ -21,7 +21,6 @@ export const getProfile = createAsyncThunk("user/profile", async (thunkAPI) => {
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toString();
-    console.log("thunkAPI:", thunkAPI);
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -118,7 +117,6 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = "action.payload";
-      console.log("action.payload: ", action);
       state.profile = null;
     },
 
@@ -134,7 +132,6 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = "action.payload";
-      console.log("action.payload: ", action.payload);
       state.userOrders = null;
     },
 

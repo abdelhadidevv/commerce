@@ -60,3 +60,5 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
     props: {},
   };
 });
+
+Cart.auth = true;

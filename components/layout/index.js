@@ -3,16 +3,11 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Fonts from "../fonts";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 
 const Layout = ({ children }) => {
   const routerHook = useRouter();
   const isShowNavAndFooter =
-    routerHook.asPath !== "/signup" && routerHook.asPath !== "/login";
-  const { status } = useSession();
-  const loading = status === "loading";
-
-  if (loading) return null;
+    routerHook.pathname !== "/signup" && routerHook.pathname !== "/login";
 
   return (
     <>

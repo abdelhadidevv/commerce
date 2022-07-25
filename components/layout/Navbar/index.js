@@ -12,11 +12,13 @@ import {
 import NextLink from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 
 const Navbar = ({ path }) => {
   const { user, isError, isLogin, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  const { status } = useSession();
 
   return (
     <StyledNavbar>
@@ -50,7 +52,7 @@ const Navbar = ({ path }) => {
         </LinkItem>
       </StyledBox>
       <StyledBox gap="14px">
-        {!isLogin ? (
+        {status !== "authenticated" ? (
           <NextLink href="/login">
             <StyledButton>Sign In</StyledButton>
           </NextLink>
@@ -77,10 +79,12 @@ const Navbar = ({ path }) => {
         <Image width={188} height={39} src="/images/logo.png" alt="logo" />
       </StyledBoxMobile>
       <StyledBoxMobile>
-        {!isLogin && (
+        {status !== "authenticated" ? (
           <NextLink href="/login">
             <StyledButton>Sign In</StyledButton>
           </NextLink>
+        ) : (
+          <StyledIcon src="/images/icons/haret-outline.svg" alt="" />
         )}
       </StyledBoxMobile>
     </StyledNavbar>
