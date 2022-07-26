@@ -19,7 +19,7 @@ export const getOffers = createAsyncThunk(
   "products/offers",
   async (thunkAPI) => {
     try {
-            // JSON.parse(JSON.stringify(props));
+      // JSON.parse(JSON.stringify(props));
       return await productsService.offers();
     } catch (error) {
       const message =

@@ -5,8 +5,6 @@ import Categories from "../components/home/Categories";
 import Products from "../components/home/Products";
 import Trending from "../components/home/Trending";
 import { wrapper } from "../store/store";
-import { isUserAuthenticated } from "../store/features/auth/authSlice";
-import { authHeader } from "../utils/authHeader";
 import {
   getOffers,
   getFeaturedCategories,

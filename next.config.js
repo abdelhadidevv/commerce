@@ -16,6 +16,10 @@ const nextConfig = {
       "images.samsung.com",
     ],
   },
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    backendUrl: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 module.exports = nextConfig;
