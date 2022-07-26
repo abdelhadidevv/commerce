@@ -1,13 +1,12 @@
-import axios from "axios";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { instance } from "../../../lib/configAxios";
 
 const login = async (userData) => {
-  const response = await axios.post(API_URL + "users/login", userData);
+  const response = await instance.post("users/login", userData);
   return response;
 };
 
 const signup = async (userData) => {
-  const response = await axios.post(API_URL + "users/signup", userData);
+  const response = await instance.post("users/signup", userData);
   return response.data;
 };
 

@@ -1,24 +1,23 @@
-import axios from "axios";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { instance } from "../../../lib/configAxios";
 
 const profile = async () => {
-  const response = await axios.get(API_URL + "users/profile");
+  const response = await instance.get("users/profile");
   return response.data;
 };
 
 const userOrders = async () => {
-  const response = await axios.get(API_URL + "orders/my-orders");
+  const response = await instance.get("orders/my-orders");
   return response.data;
 };
 
 const addToCart = async (productData) => {
-  const response = await axios.put(API_URL + "users/profile/cart", productData);
+  const response = await instance.put("users/profile/cart", productData);
   return response.data;
 };
 
 const deleteFromCart = async (productId) => {
-  const response = await axios.delete(
-    API_URL + `users/profile/cart?productId=${productId}`
+  const response = await instance.delete(
+    `users/profile/cart?productId=${productId}`
   );
   return response.data;
 };
