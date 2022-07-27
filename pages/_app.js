@@ -6,7 +6,6 @@ import NProgress from "nprogress";
 import Router from "next/router";
 import Layout from "../components/layout";
 import { wrapper } from "../store/store";
-import { setAxiosToken, instance } from "../lib/configAxios";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 // Binding events to display spinner when user navigate between routes
@@ -36,10 +35,6 @@ export default wrapper.withRedux(Website);
 function Auth({ children }) {
   // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
   const { data, status } = useSession({ required: true });
-  if (status === "authenticated") {
-    setAxiosToken(data?.user?.token);
-  }
-
   return children;
 }
 

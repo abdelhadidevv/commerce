@@ -17,9 +17,8 @@ const initialState = {
 
 export const getOffers = createAsyncThunk(
   "products/offers",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      // JSON.parse(JSON.stringify(props));
       return await productsService.offers();
     } catch (error) {
       const message =
@@ -52,7 +51,7 @@ export const getFeaturedCategories = createAsyncThunk(
 
 export const getAllCategory = createAsyncThunk(
   "products/category/all",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await productsService.allCategory();
     } catch (error) {
@@ -69,7 +68,7 @@ export const getAllCategory = createAsyncThunk(
 
 export const getFeaturedProducts = createAsyncThunk(
   "products/featured-products",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await productsService.featuredProducts();
     } catch (error) {
@@ -86,7 +85,7 @@ export const getFeaturedProducts = createAsyncThunk(
 
 export const getTrendingProducts = createAsyncThunk(
   "products/trending-products",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await productsService.trendingProducts();
     } catch (error) {

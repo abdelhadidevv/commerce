@@ -17,19 +17,24 @@ import RadioColor from "../../components/shared/RadioColor";
 import { Divider } from "../../components/shared/Divider";
 import { wrapper } from "../../store/store";
 import { getProductById } from "../../store/features/products/productsSlice";
-import { addToCart } from "../../store/features/user/userSlice";
+import { addToCart, reset } from "../../store/features/user/userSlice";
 import { AddToCartSchema } from "../../utils/validationSchema";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getSession, useSession } from "next-auth/react";
+import { setAxiosToken } from "../../lib/configAxios";
+import { useRouter } from "next/router";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { productById, isError, isSuccess, message } = useSelector(
     (state) => state.products
   );
   const user = useSelector((state) => state.user);
   const [imageIndex, setImageIndex] = useState(0);
+  const { data } = useSession();
 
   const formik = useFormik({
     initialValues: {
@@ -38,10 +43,17 @@ const ProductDetails = () => {
     },
     validationSchema: AddToCartSchema,
     onSubmit: (values) => {
+      setAxiosToken(data?.user?.token);
       dispatch(addToCart(values));
-      alert("added !");
     },
   });
+
+  useEffect(() => {
+    if (user.isSuccess) {
+      router.replace("/cart");
+      dispatch(reset());
+    }
+  }, [user.isError, user.isSuccess]);
 
   useEffect(() => {
     if (isSuccess && productById) {
@@ -134,7 +146,9 @@ const GetSelectOption = ({ title, options }) =>
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
-    async ({ params }) => {
+    async ({ params, req }) => {
+      const session = await getSession({ req: req });
       await store.dispatch(getProductById(params.productId));
+      await store.dispatch(reset());
     }
 );

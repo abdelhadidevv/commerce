@@ -6,7 +6,8 @@ import {
 } from "./style";
 import Image from "next/image";
 
-const OrderItem = ({orderData}) => {
+const OrderItem = ({ orderData }) => {
+  // console.log("orderData:", orderData);
   return (
     <OrderContainer>
       <OrderImageBox>

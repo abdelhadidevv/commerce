@@ -12,6 +12,8 @@ import Spinner from "../components/shared/Spinner";
 import { wrapper } from "../store/store";
 import { useSelector } from "react-redux";
 import { getProfile } from "../store/features/user/userSlice";
+import { getSession } from "next-auth/react";
+import { setAxiosToken } from "../lib/configAxios";
 
 const Cart = () => {
   const { profile, isLoading, isError, isSuccess, message } = useSelector(
@@ -53,12 +55,12 @@ const Cart = () => {
 
 export default Cart;
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
-  // await store.dispatch(getProfile());
-
-  return {
-    props: {},
-  };
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    const session = await getSession({ req: ctx.req });
+    setAxiosToken(session?.user?.token);
+    await store.dispatch(getProfile());
+  }
+);
 
 Cart.auth = true;

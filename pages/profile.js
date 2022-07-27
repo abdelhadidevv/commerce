@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import { getProfile, getUserOrders } from "../store/features/user/userSlice";
 import { wrapper } from "../store/store";
 import { getSession } from "next-auth/react";
+import { setAxiosToken } from "../lib/configAxios";
 
 const Profile = () => {
   const { profile, userOrders, isLoading, isError, isSuccess, message } =
@@ -112,6 +113,7 @@ const Info = ({ icon, title, info }) => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const session = await getSession({ req: ctx.req });
+    setAxiosToken(session?.user?.token);
     await store.dispatch(getProfile());
     await store.dispatch(getUserOrders());
   }

@@ -18,6 +18,15 @@ import { BackButton } from "../components/cart/style";
 import { Divider2 } from "../components/shared/Divider";
 import PaymentType from "../components/shared/PaymentType";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import {
+  getProfile,
+  createOrder,
+  reset,
+} from "../store/features/user/userSlice";
+import { wrapper } from "../store/store";
+import { getSession } from "next-auth/react";
+import { setAxiosToken } from "../lib/configAxios";
 import {
   Elements,
   CardElement,
@@ -29,9 +38,12 @@ const Checkout = () => {
   const stripePromise = loadStripe(
     "pk_test_51LEyhkFXidM3zNk5QBClUHhH2akvsSNCt5HwaTjHfolKzqRgrF5GR4Oqmgqfz8PQPe1vAyIf1c3tkr0JsqDoErcM00NomsxiMS"
   );
-
+  const { profile, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.user
+  );
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
+    console.log("stripe:", stripe, " elements:", elements);
 
     if (!stripe || !elements) return;
 
@@ -110,10 +122,14 @@ const Checkout = () => {
                   <InputTitle>Name on card</InputTitle>
                   <StyledInput type="text" placeholder="Name" /> */}
                 </LeftContainer>
+                
                 <RightContainer>
                   <RightBox>
                     <StyledTitle>Summary</StyledTitle>
-                    <OrderInfo title="Order total" value="$ 2,378.00" />
+                    <OrderInfo
+                      title="Order total"
+                      value={`$ ${profile.cart.totalPrice}`}
+                    />
                     <OrderInfo title="Promo code" value="SALE22" />
                     <OrderInfo title="Shipping" value="$219.00" />
                   </RightBox>
@@ -123,14 +139,15 @@ const Checkout = () => {
                         Subtotal
                       </OrderInfoTitle>
                       <OrderInfoTitle color="#0EA965" fSize="25px">
-                        Total: $1234
+                        Total: $ {profile.cart.totalPrice}
                       </OrderInfoTitle>
                     </StyledRow>
                   </RightBox>
                 </RightContainer>
               </StyledRow>
               <Divider2 />
-              <CheckoutButton type="submit" disabled={!stripe}>
+              <CheckoutButton type="submit">
+                {/* disabled={!stripe} */}
                 Checkout
               </CheckoutButton>
             </CheckoutContainer>
@@ -151,5 +168,13 @@ const OrderInfo = ({ title, value }) => {
     </StyledRow>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    const session = await getSession({ req: ctx.req });
+    setAxiosToken(session?.user?.token);
+    await store.dispatch(getProfile());
+  }
+);
 
 Checkout.auth = true;

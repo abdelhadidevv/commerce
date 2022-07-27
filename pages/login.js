@@ -44,7 +44,7 @@ const Login = () => {
         callbackUrl: `${window.location.origin}/`,
       });
       if (!result.error && result.ok) {
-        // console.log(result);
+
       } else {
         setErrorMessage(result.error);
       }
