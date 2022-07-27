@@ -157,6 +157,7 @@ export const Button = styled.button`
   font-weight: 600;
   font-size: 16px;
   margin-top: 32px;
+  cursor: pointer;
   ${mobile(css`
     width: 100%;
   `)}

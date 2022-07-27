@@ -9,7 +9,7 @@ import Image from "next/image";
 const PaymentType = () => {
   return (
     <PaymentTypeContainer>
-      <InputRadio type="radio" id="credit-card" name="color" value="" checked />
+      <InputRadio type="radio" id="credit-card" name="color" value="" defaultChecked />
       <Label htmlFor="credit-card">Credit Card</Label>
       <RightContainer>
         <Image

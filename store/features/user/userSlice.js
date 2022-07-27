@@ -4,6 +4,7 @@ import userService from "./userService";
 const initialState = {
   profile: null,
   userOrders: null,
+  createdOrder: null,
   userCart: null,
   addToCart: null,
   deleteFromCart: null,
@@ -13,21 +14,26 @@ const initialState = {
   message: null,
 };
 
-export const getProfile = createAsyncThunk("user/profile", async (thunkAPI) => {
-  try {
-    return await userService.profile();
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    return thunkAPI.rejectWithValue(message);
+export const getProfile = createAsyncThunk(
+  "user/profile",
+  async (_, thunkAPI) => {
+    try {
+      return await userService.profile();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
   }
-});
+);
 
 export const getUserOrders = createAsyncThunk(
   "orders/my-orders",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await userService.userOrders();
     } catch (error) {
@@ -44,9 +50,26 @@ export const getUserOrders = createAsyncThunk(
 
 export const getUserCart = createAsyncThunk(
   "users/profile/cart",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await userService.userCart();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const createOrder = createAsyncThunk(
+  "create/order",
+  async (dataOrder, thunkAPI) => {
+    try {
+      return await userService.createOrder(dataOrder);
     } catch (error) {
       const message =
         (error.response &&
@@ -116,7 +139,7 @@ export const userSlice = createSlice({
     [getProfile.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.message = "action.payload";
+      state.message = action.payload;
       state.profile = null;
     },
 
@@ -131,8 +154,23 @@ export const userSlice = createSlice({
     [getUserOrders.rejected]: (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.message = "action.payload";
+      state.message = action.payload;
       state.userOrders = null;
+    },
+
+    [createOrder.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [createOrder.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.createdOrder = action.payload;
+    },
+    [createOrder.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+      state.createdOrder = null;
     },
 
     [getUserCart.pending]: (state, action) => {

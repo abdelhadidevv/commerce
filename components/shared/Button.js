@@ -9,4 +9,5 @@ export const ButtonViewMore = styled.button`
   font-size: 20px;
   font-weight: 600;
   margin: ${({ m }) => m && m};
+  cursor: pointer;
 `;

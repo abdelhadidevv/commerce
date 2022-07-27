@@ -20,6 +20,7 @@ export const StyledTitle = styled.div`
 
 export const CheckoutButton = styled(PaymentButton)`
   margin-top: 35px;
+  cursor: pointer;
 `;
 
 export const LeftContainer = styled.div`

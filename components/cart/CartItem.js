@@ -26,7 +26,7 @@ const CartItem = ({ itemData }) => {
           <CartItemName>{itemData?.product?.name}</CartItemName>
           <RowBox>
             <QuantityButton mb>-</QuantityButton>
-            <QuantityInput min={1} value={1} type="number" />
+            <QuantityInput min={1} defaultValue={1} type="number" />
             <QuantityButton>+</QuantityButton>
           </RowBox>
         </RowBox>

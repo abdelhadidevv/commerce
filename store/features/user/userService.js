@@ -10,6 +10,11 @@ const userOrders = async () => {
   return response.data;
 };
 
+const createOrder = async (dataOrder) => {
+  const response = await instance.post("orders", dataOrder);
+  return response.data;
+};
+
 const addToCart = async (productData) => {
   const response = await instance.put("users/profile/cart", productData);
   return response.data;
@@ -25,6 +30,7 @@ const deleteFromCart = async (productId) => {
 const authService = {
   profile,
   userOrders,
+  createOrder,
   addToCart,
   deleteFromCart,
 };

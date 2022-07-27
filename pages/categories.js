@@ -36,8 +36,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ query }) => {
       const { category } = query;
       await store.dispatch(getProductsByCategory(category));
-      return {
-        props: {},
-      };
     }
 );
