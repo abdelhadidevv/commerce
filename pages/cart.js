@@ -10,10 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { wrapper } from "../store/store";
 import { useSelector } from "react-redux";
-import {
-  getProfile,
-  reset,
-} from "../store/features/user/userSlice";
+import { getProfile, reset } from "../store/features/user/userSlice";
 import { getSession } from "next-auth/react";
 import { setAxiosToken } from "../lib/configAxios";
 
@@ -21,8 +18,7 @@ const Cart = () => {
   const { profile, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-    console.log(profile);
-    console.log(message);
+
   return (
     <LayoutPage title="Cart">
       <CartContainer>
@@ -38,7 +34,7 @@ const Cart = () => {
         <CartList>
           {profile?.cart?.items?.length > 0 ? (
             profile?.cart?.items?.map((item) => (
-              <CartItem key={item._id+"-"+Math.random()} itemData={item} />
+              <CartItem key={item._id + "-" + Math.random()} itemData={item} />
             ))
           ) : (
             <>Empty Cart!</>
@@ -59,6 +55,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const session = await getSession({ req: ctx.req });
     setAxiosToken(session?.user?.token);
     await store.dispatch(getProfile());
+    console.log("session?.user?.token:", session?.user?.token);
+
+    console.log("store:", store.getState());
+
     store.dispatch(reset());
   }
 );
