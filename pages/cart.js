@@ -21,7 +21,8 @@ const Cart = () => {
   const { profile, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
-
+    console.log(profile);
+    console.log(message);
   return (
     <LayoutPage title="Cart">
       <CartContainer>
