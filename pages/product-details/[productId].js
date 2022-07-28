@@ -149,6 +149,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ params, req }) => {
       const session = await getSession({ req: req });
       await store.dispatch(getProductById(params.productId));
-      await store.dispatch(reset());
+      store.dispatch(reset());
     }
 );
