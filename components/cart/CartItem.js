@@ -21,7 +21,7 @@ const CartItem = ({ itemData }) => {
           alt=""
         />
       </ImageBox>
-      <RowBox jContent="space-between" fill>
+      <RowBox jContent="space-between" fillWidth>
         <RowBox gap="118px" mb>
           <CartItemName>{itemData?.product?.name}</CartItemName>
           <RowBox>

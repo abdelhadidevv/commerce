@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { mobile } from "../../utils/media";
-import { PaymentButton } from "../cart/style";
 
 export const CheckoutContainer = styled.form`
   display: flex;
@@ -18,8 +17,26 @@ export const StyledTitle = styled.div`
   margin-top: ${({ mt }) => mt && mt};
 `;
 
-export const CheckoutButton = styled(PaymentButton)`
+export const CheckoutButton = styled.button`
+  width: 202px;
+  height: 47px;
+  background: #fa7400;
+  border: 0.4px solid #afafaf;
+  border-radius: 4px;
   margin-top: 35px;
+  font-size: 16px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  text-decoration: none;
+  ${mobile(
+    css`
+      width: 100%;
+    `,
+    600
+  )}
   cursor: pointer;
 `;
 

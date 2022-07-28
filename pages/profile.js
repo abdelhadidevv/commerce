@@ -29,7 +29,7 @@ const Profile = () => {
     useSelector((state) => state.user);
 
   return (
-    <LayoutPage title="Profile" protected>
+    <LayoutPage title="Profile">
       <ProfileContainer>
         <TopContainer>
           <AvatarBox>

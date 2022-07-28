@@ -119,7 +119,7 @@ export const RowBox = styled.div`
   align-items: center;
   gap: ${({ gap }) => gap && gap};
   justify-content: ${({ jContent }) => jContent && jContent};
-  width: ${({ fill }) => fill && "100%"};
+  width: ${({ fillWidth }) => fillWidth && "100%"};
   ${mobile(css`
     flex-direction: ${({ mb }) => mb && "column"};
     gap: ${({ mb }) => mb && "28px"};
