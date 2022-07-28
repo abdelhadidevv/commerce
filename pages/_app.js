@@ -8,6 +8,8 @@ import Layout from "../components/layout";
 import { wrapper } from "../store/store";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+
 // Binding events to display spinner when user navigate between routes
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -27,6 +29,7 @@ function Website({ Component, pageProps: { session, ...pageProps }, router }) {
           <Component {...pageProps} />
         </GlobalValidation>
       )}
+      <Toaster position="top-center" reverseOrder={false} />
     </SessionProvider>
   );
 }

@@ -18,6 +18,7 @@ import { BackButton } from "../components/cart/style";
 import { Divider2 } from "../components/shared/Divider";
 import PaymentType from "../components/shared/PaymentType";
 import Image from "next/image";
+import {useRouter} from "next/router";
 import { useSelector } from "react-redux";
 import {
   getProfile,
@@ -33,59 +34,50 @@ import {
   ElementsConsumer,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const Checkout = () => {
-  const stripePromise = loadStripe(
-    "pk_test_51LEyhkFXidM3zNk5QBClUHhH2akvsSNCt5HwaTjHfolKzqRgrF5GR4Oqmgqfz8PQPe1vAyIf1c3tkr0JsqDoErcM00NomsxiMS"
-  );
-  const { profile, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
+const Checkout = ({ publicKey }) => {
+  const { profile, createdOrder, isLoading, isError, isSuccess, message } =
+    useSelector((state) => state.user);
+  const stripePromise = loadStripe(publicKey);
+  const router = useRouter();
+
+  const options = {
+    // passing the client secret obtained from the server
+    clientSecret: createdOrder?.clientSecret,
+  };
+
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
-    console.log("stripe:", stripe, " elements:", elements);
 
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardElement);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const payment = stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
     });
 
+    toast.promise(payment, {
+      loading: "Loading...",
+      success: <b>Payment success!</b>,
+      error: <b>Failed to Pay add items to cart again.</b>,
+    });
+    
+    const { error, paymentMethod } = await payment;
     if (error) {
-      console.log("[error]", error);
+      // console.log("[error]", error);
     } else {
-      console.log(paymentMethod);
-      // const orderData = {
-      //   line_items: checkoutToken.live.line_items,
-      //   customer: {
-      //     firstname: shippingData.firstName,
-      //     lastname: shippingData.lastName,
-      //     email: shippingData.email,
-      //   },
-      //   shipping: {
-      //     name: "International",
-      //     street: shippingData.address1,
-      //     town_city: shippingData.city,
-      //     county_state: shippingData.shippingSubdivision,
-      //     postal_zip_code: shippingData.zip,
-      //     country: shippingData.shippingCountry,
-      //   },
-      //   fulfillment: { shipping_method: shippingData.shippingOption },
-      //   payment: {
-      //     gateway: "stripe",
-      //     stripe: {
-      //       payment_method_id: paymentMethod.id,
-      //     },
-      //   },
-      // };
+      // console.log("paymentMethod:", paymentMethod);
+      router.push("/")
     }
   };
+
   return (
-    <LayoutPage title="Checkout" protected>
-      <Elements stripe={stripePromise}>
+    <LayoutPage title="Checkout">
+      <Elements stripe={stripePromise} options={options}>
         <ElementsConsumer>
           {({ elements, stripe }) => (
             <CheckoutContainer
@@ -122,13 +114,13 @@ const Checkout = () => {
                   <InputTitle>Name on card</InputTitle>
                   <StyledInput type="text" placeholder="Name" /> */}
                 </LeftContainer>
-                
+
                 <RightContainer>
                   <RightBox>
                     <StyledTitle>Summary</StyledTitle>
                     <OrderInfo
                       title="Order total"
-                      value={`$ ${profile.cart.totalPrice}`}
+                      value={`$ ${profile?.cart?.totalPrice}`}
                     />
                     <OrderInfo title="Promo code" value="SALE22" />
                     <OrderInfo title="Shipping" value="$219.00" />
@@ -139,15 +131,14 @@ const Checkout = () => {
                         Subtotal
                       </OrderInfoTitle>
                       <OrderInfoTitle color="#0EA965" fSize="25px">
-                        Total: $ {profile.cart.totalPrice}
+                        Total: $ {profile?.cart?.totalPrice}
                       </OrderInfoTitle>
                     </StyledRow>
                   </RightBox>
                 </RightContainer>
               </StyledRow>
               <Divider2 />
-              <CheckoutButton type="submit">
-                {/* disabled={!stripe} */}
+              <CheckoutButton type="submit" disabled={!stripe}>
                 Checkout
               </CheckoutButton>
             </CheckoutContainer>
@@ -173,7 +164,26 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const session = await getSession({ req: ctx.req });
     setAxiosToken(session?.user?.token);
+    const res = await axios.get(
+      "https://omar-tech-store.herokuapp.com/api/config/stripe-key"
+    );
+    const publicKey = await res.data.publishableKey;
     await store.dispatch(getProfile());
+    store.dispatch(reset());
+    await store.dispatch(
+      createOrder({
+        address: "string",
+        city: "string",
+        postalCode: "number",
+        country: "string",
+      })
+    );
+    store.dispatch(reset());
+    return {
+      props: {
+        publicKey,
+      },
+    };
   }
 );
 
