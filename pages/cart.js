@@ -53,14 +53,9 @@ export default Cart;
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const session = await getSession({ req: ctx.req });
-    console.log("session?.user?.token:1", session);
-
+    console.log("session:", session);
     setAxiosToken(session?.user?.token);
     await store.dispatch(getProfile());
-    console.log("session?.user?.token:2", session);
-
-    console.log("store:", store.getState());
-
     store.dispatch(reset());
   }
 );
