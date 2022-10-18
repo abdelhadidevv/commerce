@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   user: null,
@@ -60,6 +61,12 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.auth,
+      };
+    },
     [login.pending]: (state, action) => {
       state.isLoading = true;
     },

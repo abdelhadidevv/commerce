@@ -58,7 +58,7 @@ const SignUp = () => {
     dispatch(reset());
   }, [isError, isSuccess, message, router, dispatch]);
 
-  if (status === authenticated) {
+  if (status === "authenticated") {
     router.push("/");
     return null;
   }

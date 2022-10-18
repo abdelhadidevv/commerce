@@ -107,6 +107,13 @@ export const Name = styled.p`
   white-space: nowrap;
   overflow: hidden;
   margin-right: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  :hover {
+    color: #fa7400;
+  }
+
   ${mobile(
     css`
       font-size: 20px;

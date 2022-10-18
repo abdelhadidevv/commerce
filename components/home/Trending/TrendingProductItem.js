@@ -12,11 +12,7 @@ const TrendingProductItem = ({ productData }) => {
   const router = useRouter();
 
   return (
-    <TrendingProductItemCard
-      onClick={() => {
-        router.push(`/product-details/${productData._id}`);
-      }}
-    >
+    <TrendingProductItemCard>
       <ImageBox>
         <Image
           width={200}
@@ -26,11 +22,17 @@ const TrendingProductItem = ({ productData }) => {
           loading="lazy"
           blurDataURL={productData.images}
           placeholder="blur"
-          alt=""
+          alt={productData.name}
         />
       </ImageBox>
       <StyledRow>
-        <ProductName>{productData.name}</ProductName>
+        <ProductName
+          onClick={() => {
+            router.push(`/product-details/${productData._id}`);
+          }}
+        >
+          {productData.name}
+        </ProductName>
         <ProductPrice mt0>${productData.price}</ProductPrice>
       </StyledRow>
     </TrendingProductItemCard>

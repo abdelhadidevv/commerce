@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import Fonts from "../fonts";
 import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
@@ -22,7 +21,6 @@ const Layout = ({ children }) => {
         <meta property="og:type" content="website" />
         <title>TechStore - Home</title>
       </Head>
-      <Fonts />
 
       {isShowNavAndFooter && <Navbar path={routerHook.asPath} />}
       {children}

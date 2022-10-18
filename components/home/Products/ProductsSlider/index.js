@@ -3,6 +3,7 @@ import ProductItem from "./ProductItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -109,7 +110,6 @@ const ProductsSlider = () => {
         {listData.map((item) => (
           <ProductItem key={item._id} productData={item} />
         ))}
-        <style jsx>{``}</style>
       </Slider>
     </ProductsSliderContainer>
   );
