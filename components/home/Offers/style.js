@@ -63,6 +63,7 @@ export const OffersButton = styled.button`
   border: 1px solid #ffffff;
   border-radius: 9px;
   padding: 14px 60px;
+  transition: background 0.3s ease;
   :hover {
     background: #fa7400;
   }

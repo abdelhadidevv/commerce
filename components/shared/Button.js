@@ -10,4 +10,9 @@ export const ButtonViewMore = styled.button`
   font-weight: 600;
   margin: ${({ m }) => m && m};
   cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease;
+  :hover {
+    color: #ffffff;
+    background: #fa7400;
+  }
 `;

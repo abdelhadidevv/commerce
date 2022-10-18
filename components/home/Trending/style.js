@@ -88,4 +88,9 @@ export const ProductName = styled.div`
   font-size: 16px;
   font-weight: 400;
   color: #111111;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  :hover {
+    color: #fa7400;
+  }
 `;

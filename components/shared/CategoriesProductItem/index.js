@@ -15,11 +15,7 @@ const CategoriesProductItem = ({ productData }) => {
   const router = useRouter();
 
   return (
-    <CategoriesProductCard
-      onClick={() => {
-        router.push(`/product-details/${productData._id}`);
-      }}
-    >
+    <CategoriesProductCard>
       <StyledIconBox w="30px" h="25px" aSelf="flex-end">
         <Image width={30} height={25} src="/images/icons/heart.svg" alt="" />
       </StyledIconBox>
@@ -40,7 +36,13 @@ const CategoriesProductItem = ({ productData }) => {
         />
       </StyledImageBox>
       <StyledRow m="0px 0px 13px 0px">
-        <StyledProductName>{productData?.name}</StyledProductName>
+        <StyledProductName
+          onClick={() => {
+            router.push(`/product-details/${productData._id}`);
+          }}
+        >
+          {productData?.name}
+        </StyledProductName>
         <Price p="6px 18px">${productData?.price}</Price>
       </StyledRow>
       <Divider2 />

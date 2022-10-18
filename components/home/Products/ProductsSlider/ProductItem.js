@@ -12,11 +12,7 @@ const ProductItem = ({ productData }) => {
   const router = useRouter();
 
   return (
-    <ProductItemContainer
-      onClick={() => {
-        router.push(`/product-details/${productData._id}`);
-      }}
-    >
+    <ProductItemContainer>
       <ProductImageBox>
         <Image
           width={150}
@@ -30,7 +26,11 @@ const ProductItem = ({ productData }) => {
       </ProductImageBox>
       <ProductName>{productData.name}</ProductName>
       <ProductPrice>${productData.price}</ProductPrice>
-      <MoreInfo>
+      <MoreInfo
+        onClick={() => {
+          router.push(`/product-details/${productData._id}`);
+        }}
+      >
         More info &nbsp;
         <Image
           width={28}

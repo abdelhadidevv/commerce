@@ -98,7 +98,6 @@ const Categories = () => {
                     }
                   >
                     View More
-                    {/* {listCategory[0].name.toString().toLowerCase()} */}
                   </ButtonViewMore>
                 </CenterContent>
               </TabPanel>

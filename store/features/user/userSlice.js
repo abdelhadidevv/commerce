@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userService from "./userService";
+import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   profile: null,
@@ -128,6 +129,12 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.user,
+      };
+    },
     [getProfile.pending]: (state, action) => {
       state.isLoading = true;
     },

@@ -16,11 +16,7 @@ const SingleItem = ({ itemData }) => {
   const router = useRouter();
 
   return (
-    <SingleItemContainer
-      onClick={() => {
-        router.push(`/product-details/${itemData._id}`);
-      }}
-    >
+    <SingleItemContainer>
       <Discount>{itemData.discount}</Discount>
       <SliderImageBox>
         <Image
@@ -36,7 +32,14 @@ const SingleItem = ({ itemData }) => {
       </SliderImageBox>
       <StyledColumn>
         <Row justify="space-between">
-          <Name fontSize="37px" weight="600" lg>
+          <Name
+            lg
+            fontSize="37px"
+            weight="600"
+            onClick={() => {
+              router.push(`/product-details/${itemData._id}`);
+            }}
+          >
             {itemData.title}
           </Name>
           <Price>{itemData.price}</Price>

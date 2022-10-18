@@ -43,10 +43,10 @@ const SingleSlider = () => {
   }, [featuredCategories, isSuccess]);
 
   return (
-    <SingleSliderContainer>
+    <SingleSliderContainer> 
       <Slider {...settings}>
         {listData?.map((item) => (
-          <SingleItem itemData={item} key={Math.random()} />
+          <SingleItem itemData={item} key={Math.random() + "-" + item.image} />
         ))}
       </Slider>
     </SingleSliderContainer>

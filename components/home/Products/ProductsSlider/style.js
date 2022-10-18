@@ -47,4 +47,10 @@ export const MoreInfo = styled.a`
   text-decoration: none;
   display: flex;
   justify-content: center;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+
+  :hover {
+    color: #fa7400;
+  }
 `;

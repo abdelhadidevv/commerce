@@ -33,6 +33,11 @@ export const StyledProductName = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  :hover {
+    color: #fa7400;
+  }
 `;
 
 export const StyledRow = styled.div`
